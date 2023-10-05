@@ -1,21 +1,21 @@
-current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
+current directory: D:/github-io/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
 D:/env/Ruby32-x64/bin/ruby.exe extconf.rb
 checking for rb_sym2str()... yes
 creating Makefile
 
-current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
-make DESTDIR\= sitearchdir\=./.gem.20231005-20744-o85aor sitelibdir\=./.gem.20231005-20744-o85aor clean
+current directory: D:/github-io/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
+make DESTDIR\= sitearchdir\=./.gem.20231005-21476-bg2amv sitelibdir\=./.gem.20231005-21476-bg2amv clean
 
-current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
-make DESTDIR\= sitearchdir\=./.gem.20231005-20744-o85aor sitelibdir\=./.gem.20231005-20744-o85aor
+current directory: D:/github-io/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
+make DESTDIR\= sitearchdir\=./.gem.20231005-21476-bg2amv sitelibdir\=./.gem.20231005-21476-bg2amv
 generating duktape_ext-x64-mingw-ucrt.def
 compiling duktape.c
 compiling duktape_ext.c
 linking shared-object duktape_ext.so
 
-current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
-make DESTDIR\= sitearchdir\=./.gem.20231005-20744-o85aor sitelibdir\=./.gem.20231005-20744-o85aor install
-/usr/bin/install -c -m 0755 duktape_ext.so ./.gem.20231005-20744-o85aor
+current directory: D:/github-io/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
+make DESTDIR\= sitearchdir\=./.gem.20231005-21476-bg2amv sitelibdir\=./.gem.20231005-21476-bg2amv install
+/usr/bin/install -c -m 0755 duktape_ext.so ./.gem.20231005-21476-bg2amv
 
-current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
-make DESTDIR\= sitearchdir\=./.gem.20231005-20744-o85aor sitelibdir\=./.gem.20231005-20744-o85aor clean
+current directory: D:/github-io/vendor/bundle/ruby/3.2.0/gems/duktape-2.7.0.0/ext/duktape
+make DESTDIR\= sitearchdir\=./.gem.20231005-21476-bg2amv sitelibdir\=./.gem.20231005-21476-bg2amv clean

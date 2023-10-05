@@ -133,7 +133,7 @@ checked program was:
 /* end */
 
 PATH=".;D:/env/Ruby32-x64/lib;D:\env\Ruby32-x64\bin;D:\env\Ruby32-x64\msys64\ucrt64\bin;D:\env\Ruby32-x64\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;D:\env\Git\cmd;D:\env\Ruby32-x64\bin;C:\Users\14549\AppData\Local\Microsoft\WindowsApps;C:\Users\14549\.dotnet\tools;D:\software\ide\Microsoft VS Code\bin" "gcc -o conftest.exe -ID:/env/Ruby32-x64/include/ruby-3.2.0/x64-mingw-ucrt -ID:/env/Ruby32-x64/include/ruby-3.2.0/ruby/backward -ID:/env/Ruby32-x64/include/ruby-3.2.0 -I. -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LD:/env/Ruby32-x64/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed  -m64   -lx64-ucrt-ruby320  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
-D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccq48DUy.o:conftest.c:(.text+0x5): undefined reference to `rb_thread_blocking_region'
+D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccKoFgB7.o:conftest.c:(.text+0x5): undefined reference to `rb_thread_blocking_region'
 collect2.exe: error: ld returned 1 exit status
 checked program was:
 /* begin */
@@ -315,7 +315,7 @@ checked program was:
 /* end */
 
 PATH=".;D:/env/Ruby32-x64/lib;D:\env\Ruby32-x64\bin;D:\env\Ruby32-x64\msys64\ucrt64\bin;D:\env\Ruby32-x64\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;D:\env\Git\cmd;D:\env\Ruby32-x64\bin;C:\Users\14549\AppData\Local\Microsoft\WindowsApps;C:\Users\14549\.dotnet\tools;D:\software\ide\Microsoft VS Code\bin" "gcc -o conftest.exe -ID:/env/Ruby32-x64/include/ruby-3.2.0/x64-mingw-ucrt -ID:/env/Ruby32-x64/include/ruby-3.2.0/ruby/backward -ID:/env/Ruby32-x64/include/ruby-3.2.0 -I. -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LD:/env/Ruby32-x64/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed  -m64   -lx64-ucrt-ruby320  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
-D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccbfeLLL.o:conftest.c:(.text+0x5): undefined reference to `rb_enable_interrupt'
+D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccQ5ZxBh.o:conftest.c:(.text+0x5): undefined reference to `rb_enable_interrupt'
 collect2.exe: error: ld returned 1 exit status
 checked program was:
 /* begin */
@@ -540,7 +540,7 @@ checked program was:
 /* end */
 
 PATH=".;D:/env/Ruby32-x64/lib;D:\env\Ruby32-x64\bin;D:\env\Ruby32-x64\msys64\ucrt64\bin;D:\env\Ruby32-x64\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;D:\env\Git\cmd;D:\env\Ruby32-x64\bin;C:\Users\14549\AppData\Local\Microsoft\WindowsApps;C:\Users\14549\.dotnet\tools;D:\software\ide\Microsoft VS Code\bin" "gcc -o conftest.exe -ID:/env/Ruby32-x64/include/ruby-3.2.0/x64-mingw-ucrt -ID:/env/Ruby32-x64/include/ruby-3.2.0/ruby/backward -ID:/env/Ruby32-x64/include/ruby-3.2.0 -I. -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LD:/env/Ruby32-x64/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed  -m64   -lx64-ucrt-ruby320  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
-D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccDtvkJo.o:conftest.c:(.text+0x5): undefined reference to `pipe2'
+D:/env/Ruby32-x64/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\14549\AppData\Local\Temp\ccsVdyba.o:conftest.c:(.text+0x5): undefined reference to `pipe2'
 collect2.exe: error: ld returned 1 exit status
 checked program was:
 /* begin */
