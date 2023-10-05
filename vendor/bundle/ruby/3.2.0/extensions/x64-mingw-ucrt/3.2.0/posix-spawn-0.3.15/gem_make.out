@@ -1,0 +1,18 @@
+current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/posix-spawn-0.3.15/ext
+D:/env/Ruby32-x64/bin/ruby.exe extconf.rb
+
+current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/posix-spawn-0.3.15/ext
+make DESTDIR\= sitearchdir\=./.gem.20231005-20744-jrp7b1 sitelibdir\=./.gem.20231005-20744-jrp7b1 clean
+make: *** 没有规则可制作目标“clean”。 停止。
+
+current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/posix-spawn-0.3.15/ext
+make DESTDIR\= sitearchdir\=./.gem.20231005-20744-jrp7b1 sitelibdir\=./.gem.20231005-20744-jrp7b1
+make: 对“default”无需做任何事。
+
+current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/posix-spawn-0.3.15/ext
+make DESTDIR\= sitearchdir\=./.gem.20231005-20744-jrp7b1 sitelibdir\=./.gem.20231005-20744-jrp7b1 install
+make: 对“install”无需做任何事。
+
+current directory: D:/githubio/vendor/bundle/ruby/3.2.0/gems/posix-spawn-0.3.15/ext
+make DESTDIR\= sitearchdir\=./.gem.20231005-20744-jrp7b1 sitelibdir\=./.gem.20231005-20744-jrp7b1 clean
+make: *** 没有规则可制作目标“clean”。 停止。
