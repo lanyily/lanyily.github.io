@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.1.6 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>介绍tensorrt 8.6.1 | Gelei Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="介绍tensorrt 8.6.1" />
+<meta name="author" content="Ge Lei" />
+<meta property="og:locale" content="zh" />
+<meta name="description" content="tensorrt是常用算法部署工具" />
+<meta property="og:description" content="tensorrt是常用算法部署工具" />
+<link rel="canonical" href="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/" />
+<meta property="og:url" content="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/" />
+<meta property="og:site_name" content="Gelei Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-03T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="介绍tensorrt 8.6.1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-09T00:36:33+08:00","datePublished":"2023-09-03T00:00:00+08:00","description":"tensorrt是常用算法部署工具","headline":"介绍tensorrt 8.6.1","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C++基础,计算机图形学,三维动作捕捉,游戏引擎开发,音视频处理">
+  
+
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gelei Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Gelei Blog">
+
+<meta name="generator" content="Hydejack v9.1.6" />
+
+
+<link rel="alternate" href="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/" hreflang="zh">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Gelei Blog" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com"><link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+<script>!function(r,c){"use strict";function a(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=c.createElement("script"),e=(n.src=e,t&&a(n,"load",t,{once:!0}),c.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=c.createElement("script");function o(){r._loaded=!0,t&&a(n,"load",t,{once:!0});var e=c.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():a(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){a(c.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2023-10-09T21:48:00+08:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.1.6.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700%7CNoto+Sans:400,400i,700,700i&display=swap" id="_fontsPreload">
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.5);--accent-color-highlight: rgba(79, 177, 186, 0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(25,55,71)}
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+</head>
+
+<body class="no-break-layout">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/example/">example</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-09-03-tensorrt-tensorrt简介</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-example-tensorrt-tensorrt简介" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        介绍tensorrt 8.6.1
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-09-03T00:00:00+08:00">03 Sep 2023</time> in <a href="/example/" class="flip-title">Example</a> 
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 09 Oct 2023">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2023-10-09T00:36:33+08:00">2023-10-09</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      tensorrt是常用算法部署工具
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>以下介绍tensorrt 8.6.1版本的内容</p>
+
+<h1 id="目录">目录</h1>
+
+<ol>
+  <li>TensorRT简介
+    <ol>
+      <li>基本特性和用法</li>
+      <li>工作流：使用tensorrt api搭建</li>
+      <li>工作流：使用onnx-parser——使用parser解析onnx模型</li>
+      <li>工作流：使用框架内tensorrt接口</li>
+    </ol>
+  </li>
+  <li>开发辅助工具
+    <ol>
+      <li>trtexec</li>
+      <li>Netron</li>
+      <li>polygraphy</li>
+      <li>onnx-graphsurgeon</li>
+      <li>Nsight Systems</li>
+      <li>性能测试，网络可视化，模型迁移，精度检验，计算图编辑，性能优化</li>
+    </ol>
+  </li>
+  <li>插件书写
+    <ol>
+      <li>使用plugin的简单例子</li>
+      <li>关键API</li>
+      <li>结合使用parser和plugin</li>
+      <li>plugin高级话题</li>
+      <li>使用plugin的例子</li>
+    </ol>
+  </li>
+  <li>tensorrt高级用法
+    <ol>
+      <li>多optimization profile</li>
+      <li>多stream</li>
+      <li>多context</li>
+      <li>cuda graph</li>
+      <li>timing cache</li>
+      <li>algorithm selector</li>
+      <li>refit</li>
+      <li>tactic source</li>
+      <li>硬件兼容和版本兼容</li>
+    </ol>
+  </li>
+  <li>常见优化策略
+    <ol>
+      <li>概述</li>
+      <li>性能分析工具</li>
+      <li>性能优化实例</li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="tensorrt工作流">tensorrt工作流</h2>
+
+<ol>
+  <li>使用框架自带的TRT接口</li>
+</ol>
+
+<p>TF-TRT，Torch-TensorRT</p>
+
+<p>特点：易用但是性能不佳，兼容性有限，需要返回原框架计算</p>
+
+<ol>
+  <li>使用Parser——最常用，也是我们目前采用的</li>
+</ol>
+
+<p>TF/Torch/…-&gt;ONNX-&gt;TensorRT</p>
+
+<p>特点：性能兼容性更好，不支持时可以改网络，改parser或者写plugin</p>
+
+<p>当遇到重新需要生成的，需要parser onnx后，进行serialize生成trt</p>
+
+<ol>
+  <li>使用原生API搭建网络</li>
+</ol>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230829103956511.png" alt="image-20230829103956511" /></p>
+
+<p><strong>以下只介绍使用Parser的tensorrt工作流</strong></p>
+
+<h1 id="实际工程通用流程">实际工程通用流程</h1>
+
+<h2 id="workflow">workflow</h2>
+
+<p><strong>pytorch/tensorflow-&gt;C-&gt;onnx-&gt;A-&gt;trt-&gt;B-&gt;使用</strong></p>
+
+<p>C为python转C++的最重要过程</p>
+
+<p>构建引擎需要时间，为了构建一次来反复使用，需要A，B两个工作流</p>
+
+<h3 id="解析onnx">解析onnx</h3>
+
+<p>A：<strong>parse/deserialize onnx，serialize trt</strong></p>
+
+<p>解析对象为onnx文件：没有已经转好的trt或者已有的trt不适配，需要将onnx序列化trt</p>
+
+<h3 id="解析trt">解析trt</h3>
+
+<p>B：<strong>parse/deserialize trt</strong></p>
+
+<p>解析对象为trt文件：已有trt，直接导入然后得到engine和context，使用</p>
+
+<hr />
+
+<p>A，B两者最重要的<strong>中间产物</strong>都是parseTRT或者onnx得到的<strong>engine和context</strong></p>
+
+<h3 id="python转c">python转C++</h3>
+
+<p>C：将python模型转化为C++</p>
+
+<p>pytorch</p>
+
+<ol>
+  <li>创建网络，保存为.pt</li>
+  <li>pytorch内部API将.pt转化为.onnx</li>
+  <li>tensorrt中读取onnx构建engine</li>
+</ol>
+
+<p>TensorFlow</p>
+
+<ol>
+  <li>创建网络保存为.pb文件</li>
+  <li>使用tf2onnx将.pb转化为onnx文件</li>
+  <li>tensorrt中读取onnx构建engine</li>
+</ol>
+
+<h2 id="使用trt的限制">使用trt的限制</h2>
+
+<p>直接使用B的限制条件，以下环境需要一致</p>
+
+<ol>
+  <li>硬件环境必须一样，因为engine会根据硬件做优化，不能跨硬件平台</li>
+  <li>CUDA</li>
+  <li>cuDNN</li>
+  <li>tensorRT环境，不同版本tensorrt生成的engine不能够相互兼容</li>
+  <li><strong>同平台同环境</strong>多次生成的engine<strong>可能不同</strong></li>
+</ol>
+
+<p>第4点：tensorrt runtime版本和engine版本不同时的报错信息：</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824150423797.png" alt="image-20230824150423797" /></p>
+
+<p>对于第5点，可以采用以下手段，见教程第四部分</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824150613993.png" alt="image-20230824150613993" /></p>
+
+<h2 id="onnx介绍">ONNX介绍</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>官网：[ONNX</td>
+      <td>Home](https://onnx.ai/)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>open neural network exchange</p>
+
+<p>onnx是</p>
+
+<ol>
+  <li>当前tensorrt导入模型的主要途径</li>
+  <li>TF/pytorch模型转tensorrt的中间表示</li>
+  <li>用于存储训练好的模型</li>
+</ol>
+
+<p>onnxruntime</p>
+
+<ol>
+  <li>利用onnx格式模型进行推理计算的框架</li>
+  <li>可以用于检查tensorflow和torch模型导出到onnx的正确性</li>
+</ol>
+
+<h1 id="a-解析onnx">A. 解析onnx</h1>
+
+<p>已有的trt不适配，需要将onnx转为trt</p>
+
+<ol>
+  <li>parse onnx</li>
+  <li>serialize trt</li>
+  <li>保存trt文件</li>
+</ol>
+
+<p>注意：如果不使用Int8模式，onnx的parser代码几乎通用</p>
+
+<h2 id="概览">概览</h2>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824150915553.png" alt="image-20230824150915553" /></p>
+
+<p>构建阶段</p>
+
+<ol>
+  <li>建立logger（日志）</li>
+  <li>建立builder（网络元数据)</li>
+  <li>创建network（计算图）（API独需）</li>
+  <li>生成序列化的网络（网络的trt内部表示）</li>
+</ol>
+
+<p>运行阶段</p>
+
+<ol>
+  <li>建立engine（可执行代码）</li>
+  <li>创建context（gpu进程）</li>
+  <li>buffer准备（host+device）</li>
+  <li>拷贝host to device</li>
+  <li>执行推理execute</li>
+  <li>拷贝device to host</li>
+  <li>善后</li>
+</ol>
+
+<h2 id="a1-构建阶段">A.1 构建阶段</h2>
+
+<h3 id="1-创建logger">1. 创建logger</h3>
+
+<p>记录器</p>
+
+<p><code class="language-plaintext highlighter-rouge">getTRTLogger();</code></p>
+
+<h3 id="2-创建builder">2. 创建builder</h3>
+
+<p>模型搭建的入口，网络的trt内部表示和引擎都是builder的成员方法生成的</p>
+
+<p>builder.create_optimization_profile()：创建用于dynamic shape输入的配置器</p>
+
+<p><code class="language-plaintext highlighter-rouge">createInferBuilder()</code></p>
+
+<p>builder.create_network()：创建tensorrt网络对象</p>
+
+<p><code class="language-plaintext highlighter-rouge">createNetworkV2()</code></p>
+
+<p>在builderconfig下面进行细节设置</p>
+
+<hr />
+
+<p>另外builder需要创建optimazation profile</p>
+
+<p>在给定输入张量的最小最常见最大尺寸后，将设置的profile传给config</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">auto</span> <span class="n">profile</span> <span class="o">=</span> <span class="n">builder</span><span class="o">-&gt;</span><span class="n">createOptimizationProfile</span><span class="p">();</span>
+<span class="n">profile</span><span class="o">-&gt;</span><span class="n">setDimensions</span><span class="p">();</span>
+<span class="n">config</span><span class="o">-&gt;</span><span class="n">addOptimizationProfile</span><span class="p">(</span><span class="n">profile</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="3-设置builder-config">3. 设置builder config</h3>
+
+<p>进行设置网络属性</p>
+
+<p>config=builder.create_builder_config()</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">auto</span> <span class="n">config</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">nvinfer1</span><span class="o">::</span><span class="n">IBuilderConfig</span><span class="p">,</span> <span class="n">samplesCommon</span><span class="o">::</span><span class="n">InferDeleter</span><span class="o">&gt;</span><span class="p">(</span><span class="n">builder</span><span class="o">-&gt;</span><span class="n">createBuilderConfig</span><span class="p">());</span>
+</code></pre></div></div>
+
+<ol>
+  <li>指定构建期可用显存</li>
+  <li>设置标志位开关</li>
+  <li>指定校正器</li>
+  <li>添加用于dynamic shape输入的配置器</li>
+</ol>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span><span class="o">-&gt;</span><span class="n">addOptimizationProfile</span><span class="p">(</span><span class="n">profile</span><span class="p">);</span><span class="c1">//添加用于dynamic shape输入的配置器</span>
+<span class="n">config</span><span class="o">-&gt;</span><span class="n">setFlag</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="4-搭建network">4. 搭建network</h3>
+
+<p>创建network（计算图）是API独需的因为其他两种方法使用parser从onnx导入，不用一层层添加</p>
+
+<p>network=builder.create_network()</p>
+
+<p>在onnx-parser中一旦模型parser解析完成，network就自动填好了，成为了serialized network</p>
+
+<p><strong>onnx-parser解析</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">createParser</span><span class="p">(</span><span class="o">*</span><span class="n">network</span><span class="p">,</span> <span class="n">sample</span><span class="o">::</span><span class="n">gLogger</span><span class="p">.</span><span class="n">getTRTLogger</span><span class="p">();</span>
+
+<span class="n">parser</span><span class="o">-&gt;</span><span class="n">parseFromFile</span><span class="p">(</span><span class="n">modelFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sample</span><span class="o">::</span><span class="n">gLogger</span><span class="p">.</span><span class="n">getReportableSeverity</span><span class="p">()));</span>
+</code></pre></div></div>
+
+<h2 id="a2-运行阶段-runtime">A.2 运行阶段 runtime</h2>
+
+<h3 id="5-生成trt内部表示-serialized-network">5. 生成TRT内部表示-serialized network</h3>
+
+<p>build_serialized_network(network,config)</p>
+
+<h3 id="6-生成engine">6. 生成engine</h3>
+
+<p>推理引擎，可执行的代码段</p>
+
+<p>生成engine：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m_engine</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">nvinfer1</span><span class="o">::</span><span class="n">ICudaEngine</span><span class="p">,</span> <span class="n">samplesCommon</span><span class="o">::</span><span class="n">InferDeleter</span><span class="o">&gt;</span><span class="p">(</span><span class="n">builder</span><span class="o">-&gt;</span><span class="n">buildEngineWithConfig</span><span class="p">(</span><span class="o">*</span><span class="n">network</span><span class="p">,</span> <span class="o">*</span><span class="n">config</span><span class="p">),</span> <span class="n">samplesCommon</span><span class="o">::</span><span class="n">InferDeleter</span><span class="p">());</span>
+</code></pre></div></div>
+
+<h3 id="7-创建context">7. 创建context</h3>
+
+<p>context即GPU进程</p>
+
+<p>创建context：</p>
+
+<p>python:<code class="language-plaintext highlighter-rouge">engine.create_execution_context()</code></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">m_context</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">nvinfer1</span><span class="o">::</span><span class="n">IExecutionContext</span><span class="p">,</span> <span class="n">samplesCommon</span><span class="o">::</span><span class="n">InferDeleter</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m_engine</span><span class="o">-&gt;</span><span class="n">createExecutionContext</span><span class="p">(),</span> <span class="n">samplesCommon</span><span class="o">::</span><span class="n">InferDeleter</span><span class="p">());</span>
+</code></pre></div></div>
+
+<h3 id="绑定输入输出">绑定输入输出</h3>
+
+<p>仅dynamic shape需要</p>
+
+<h3 id="8-准备buffer">8. 准备buffer</h3>
+
+<ol>
+  <li>内存和显存的分别申请</li>
+  <li>拷贝</li>
+  <li>释放</li>
+</ol>
+
+<p>python:<code class="language-plaintext highlighter-rouge">cudart.cudaMalloc(inputHost.nbytes)[1]</code></p>
+
+<p><strong>课程第四部分会对buffer部分的优化做介绍</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824114005386.png" alt="image-20230824114005386" /></p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824145433795.png" alt="image-20230824145433795" /></p>
+
+<h3 id="9-执行计算-execute">9. 执行计算-execute</h3>
+
+<p>拷贝到cuda buffer上执行再拷贝回host，这一步一般是<strong>B.解析trt</strong>中做，但是读取onnx后也可以做</p>
+
+<p><code class="language-plaintext highlighter-rouge">m_context-&gt;enqueueV2()</code></p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824114125832.png" alt="image-20230824114125832" /></p>
+
+<h3 id="10-序列化引擎">10. 序列化引擎</h3>
+
+<p><code class="language-plaintext highlighter-rouge">engine-&gt;serialize()</code></p>
+
+<h3 id="11-导出trt">11. 导出trt</h3>
+
+<h2 id="特殊情况">特殊情况</h2>
+
+<p>遇到tensorrt不支持的onnx模型节点</p>
+
+<ol>
+  <li>修改源模型</li>
+  <li>修改onnx计算图，onnx-surgeon</li>
+  <li>tensorrt中实现plugin</li>
+  <li>修改parser：修改源码，重新编译trt，因为tensorrt部分开源</li>
+</ol>
+
+<h1 id="b-解析trt">B. 解析trt</h1>
+
+<p>已有trt，直接导入然后使用</p>
+
+<p>parse TRT后得到engine和context</p>
+
+<h3 id="1-创建logger-1">1. 创建logger</h3>
+
+<p><code class="language-plaintext highlighter-rouge">getTRTLogger()</code></p>
+
+<h3 id="2-创建cudaruntime">2. 创建cudaruntime</h3>
+
+<p><code class="language-plaintext highlighter-rouge">createInferRuntime()</code></p>
+
+<h3 id="3-解析反序列化trt文件生成引擎">3. 解析/反序列化trt文件，生成引擎</h3>
+
+<p><code class="language-plaintext highlighter-rouge">runtime-&gt;deserializeCudaEngine()</code></p>
+
+<h3 id="4-创建context">4. 创建context</h3>
+
+<p><code class="language-plaintext highlighter-rouge">engine-&gt;createExecutionContext()</code></p>
+
+<h3 id="5-使用">5. 使用</h3>
+
+<h1 id="背景知识">背景知识</h1>
+
+<h3 id="cuda异构计算">CUDA异构计算</h3>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/image-20230824145343446.png" alt="image-20230824145343446" /></p>
+
+<h3 id="explicit-batch-implicit-batch">Explicit Batch Implicit Batch</h3>
+
+<p>Explicit Batch为TensorRT主流网络构建方法，可以用dynamic shape</p>
+
+<p>从onnx中导入的模型默认使用explicit batch模式</p>
+
+<p>implicit batch单纯用于向旧版兼容</p>
+
+<hr />
+
+<h3 id="dynamic-shape模式">Dynamic Shape模式</h3>
+
+<p>适用于输入张量形状在推理时才决定网络</p>
+
+<p>除了batch维度，其他维度可以在推理时决定</p>
+
+<p><strong>前提</strong></p>
+
+<ol>
+  <li>需要explicit batch</li>
+  <li>需要optimazation profile帮助网络优化</li>
+  <li>需要context.set_input_shape绑定实际输入数据形状</li>
+</ol>
+
+<h3 id="一些建议">一些建议</h3>
+
+<ol>
+  <li>使用最新的tensorrt8</li>
+  <li>使用explicit batch模式，是onnx格式默认格式</li>
+  <li>使用dynamic shape模式</li>
+</ol>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="https://via.placeholder.com/128x128"
+    srcset="https://via.placeholder.com/128x128 1x,https://via.placeholder.com/256x256 2x"
+    
+  
+  alt="Ge Lei"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>你好,我是Gelei,我毕业于北京邮电大学计算机学院,希望你能从本站中有所收获~</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/example/2023-10-08-example/" class="flip-title"><span>享元模式</span></a>  <time class="faded fine" datetime="2023-10-08T00:00:00+08:00">08 Oct 2023</time></li>                        <li class="h4">  <a href="/design%20pattern/2023-10-08-design-pattern;example/" class="flip-title"><span>享元模式</span></a>  <time class="faded fine" datetime="2023-10-08T00:00:00+08:00">08 Oct 2023</time></li>                        <li class="h4">  <a href="/example/2020-07-03-introducing-hydejack-9/" class="flip-title"><span>Introducing Hydejack 9</span></a>  <time class="faded fine" datetime="2020-07-03T00:00:00+08:00">03 Jul 2020</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  
+
+
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2023. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/LICENSE/">LICENSE</a>
+      |
+    
+      
+      <a class="heading flip-title" href="/NOTICE/">NOTICE</a>
+      |
+    
+      
+      <a class="heading flip-title" href="/CHANGELOG/">CHANGELOG</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.1.6</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Gelei Blog" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Gelei Blog</h2></a>
+    
+    
+      <p class="">
+        百万雄狮都听我号令！
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/example/"
+          class="sidebar-nav-item "
+          
+        >
+          Example
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/docs/"
+          class="sidebar-nav-item "
+          
+        >
+          Documentation
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())}();
+</script>
+  <script src="/assets/js/hydejack-9.1.6.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.1.6.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  <!-- <script>
+  document.querySelector('hy-push-state').setAttribute('prefetch', '');
+
+  document.querySelectorAll('.sidebar a[href^="/"]').forEach(function (el) { 
+    el.addEventListener('click', function (e) {
+      if (el.pathname === window.location.pathname) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelector('hy-drawer').close();
+      }
+    });
+  });
+</script> -->
+
+<!--
+Code for integrating CloudFlare's email protection with Hydejack's single page app loading.
+-->
+<script>
+  document.getElementById('_pushState').addEventListener('hy-push-state-after', function (e) {
+    function e(e){
+      (console.error?console.error:console.log).call(console,e)
+    }
+
+    function t(e){
+      return l.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',l.childNodes[0].getAttribute("href")
+    }
+
+    function r(e,t){
+      var r=e.substr(t,2);return parseInt(r,16)
+    }
+
+    function n(e,n){
+      for(var o="",c=r(e,n),a=n+2;a<e.length;a+=2){
+        var l=r(e,a)^c;
+        o+=String.fromCharCode(l)
+      }
+      return t(o)
+    }
+
+    var o="/cdn-cgi/l/email-protection#",
+        c=".__cf_email__",
+        a="data-cfemail",
+        l=document.createElement("div");
+
+    !function(){
+      for(var t=document.getElementsByTagName("a"),r=0;r<t.length;r++)
+        try{
+          var c=t[r],a=c.href.indexOf(o);
+          a>-1&&(c.href="mailto:"+n(c.href,a+o.length))
+        }catch(t){
+          e(t)
+        }
+    }(),
+    function(){
+      for(var t=document.querySelectorAll(c),r=0;r<t.length;r++)
+        try{
+          var o=t[r],l=n(o.getAttribute(a),0),i=document.createTextNode(l);
+          o.parentNode.replaceChild(i,o)
+        }catch(t){
+          e(t)
+        }
+    }()
+  });
+</script>
+
+
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>

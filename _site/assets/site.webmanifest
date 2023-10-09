@@ -1,8 +1,8 @@
 {
-  "lang": "en",
-  "name": "Gelei's Blog",
-  "short_name": "Gelei's Blog",
-  "description": "Hydejack is a boutique Jekyll theme for hackers, nerds, and academics, with a focus on personal sites that are meant to impress.",
+  "lang": "zh",
+  "name": "Gelei Blog",
+  "short_name": "Gelei Blog",
+  "description": "格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等",
   "start_url": "/?utm_source=homescreen",
   "theme_color": "rgb(25,55,71)",
   "background_color": "#fff",
