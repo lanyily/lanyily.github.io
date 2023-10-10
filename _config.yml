@@ -15,7 +15,7 @@
 # Theme
 # ---------------------------------------------------------------------------------------
 # 修改为远程的主题
-# theme: jekyll-theme-hydejack
+theme: jekyll-theme-hydejack
 remote_theme: hydecorp/hydejack@v9
 
 # General settings
@@ -66,18 +66,18 @@ menu:
     url:               /docs/
   - title:             windows开发
     url:               /about/
-  - title:             About
-    url:               /about/
+  # - title:             About
+  #   url:               /about/
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
 legal:
-  - title:             LICENSE
-    url:               /LICENSE/
-  - title:             NOTICE
-    url:               /NOTICE/
-  - title:             CHANGELOG
-    url:               /CHANGELOG/
+  # - title:             LICENSE
+  #   url:               /LICENSE/
+  # - title:             NOTICE
+  #   url:               /NOTICE/
+  # - title:             CHANGELOG
+  #   url:               /CHANGELOG/
 
 # This text will appear in a `<small>` tag in the footer of every page.
 copyright:             © 2023. All rights reserved.
