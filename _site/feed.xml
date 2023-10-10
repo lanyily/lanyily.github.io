@@ -1,5 +1,157 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2023-10-09T21:48:00+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Gelei Blog</title><subtitle>格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等
-</subtitle><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><entry><title type="html">享元模式</title><link href="http://localhost:4000/example/2023-10-08-example/" rel="alternate" type="text/html" title="享元模式" /><published>2023-10-08T00:00:00+08:00</published><updated>2023-10-09T00:38:31+08:00</updated><id>http://localhost:4000/example/example</id><content type="html" xml:base="http://localhost:4000/example/2023-10-08-example/"><![CDATA[<p>本文介绍享元模式</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2023-10-10T21:04:28+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Gelei Blog</title><subtitle>格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等
+</subtitle><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><entry><title type="html">简单工厂模式</title><link href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" rel="alternate" type="text/html" title="简单工厂模式" /><published>2023-09-22T00:00:00+08:00</published><updated>2023-10-10T00:24:25+08:00</updated><id>http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/design-pattern</id><content type="html" xml:base="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/"><![CDATA[<p>定义一个工厂类，其成员函数可以根据不同的参数创建并返回不同的类对象，调用者无需关注创建细节</p>
+
+<h2 id="简介">简介</h2>
+
+<p>模式：简单工厂</p>
+
+<p>英文：simple factory</p>
+
+<p>定义：定义一个工厂类，其成员函数可以根据不同的参数创建并返回不同的类对象，调用者无需关注创建细节</p>
+
+<p>意图：实例化的活动不应该总是公开地进行，为了避免初始化总是造成耦合问题，将两者解耦</p>
+
+<h2 id="设计准则">设计准则</h2>
+
+<ol>
+  <li><strong><em>对修改关闭，对扩展开放</em></strong>：增加新功能不应该修改已经存在的代码，而应该通过增加新类或新成员函数</li>
+  <li><strong><em>针对接口编程，不针对实现编程</em></strong></li>
+  <li><strong><em>依赖倒置原则：要依赖抽象，不要依赖具体类</em></strong>：不能让高层组件依赖低层组件，而且两者都应该依赖于抽象</li>
+  <li><strong><em>封装变化</em></strong>：将容易变化的代码段限制在一个小范围内</li>
+</ol>
+
+<h2 id="代码">代码</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Role</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">Role</span><span class="p">(</span><span class="kt">int</span> <span class="n">life</span><span class="p">,</span> <span class="kt">int</span> <span class="n">magic</span><span class="p">,</span> <span class="kt">int</span> <span class="n">attack</span><span class="p">)</span> <span class="o">:</span><span class="n">m_life</span><span class="p">(</span><span class="n">life</span><span class="p">),</span> <span class="n">m_magic</span><span class="p">(</span><span class="n">magic</span><span class="p">),</span> <span class="n">m_attack</span><span class="p">(</span><span class="n">attack</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="k">virtual</span> <span class="o">~</span><span class="n">Role</span><span class="p">(){}</span>
+<span class="k">protected</span><span class="o">:</span>
+	<span class="kt">int</span> <span class="n">m_life</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">m_magic</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">m_attack</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">R_A</span> <span class="o">:</span><span class="k">public</span> <span class="n">Role</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">R_A</span><span class="p">(</span><span class="kt">int</span> <span class="n">life</span><span class="p">,</span> <span class="kt">int</span> <span class="n">magic</span><span class="p">,</span> <span class="kt">int</span> <span class="n">attack</span><span class="p">)</span> <span class="o">:</span><span class="n">Role</span><span class="p">(</span><span class="n">life</span><span class="p">,</span> <span class="n">magic</span><span class="p">,</span> <span class="n">attack</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"创建A角色"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">R_B</span> <span class="o">:</span><span class="k">public</span> <span class="n">Role</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">R_B</span><span class="p">(</span><span class="kt">int</span> <span class="n">life</span><span class="p">,</span> <span class="kt">int</span> <span class="n">magic</span><span class="p">,</span> <span class="kt">int</span> <span class="n">attack</span><span class="p">)</span> <span class="o">:</span><span class="n">Role</span><span class="p">(</span><span class="n">life</span><span class="p">,</span> <span class="n">magic</span><span class="p">,</span> <span class="n">attack</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"创建B角色"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">R_C</span> <span class="o">:</span><span class="k">public</span> <span class="n">Role</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">R_C</span><span class="p">(</span><span class="kt">int</span> <span class="n">life</span><span class="p">,</span> <span class="kt">int</span> <span class="n">magic</span><span class="p">,</span> <span class="kt">int</span> <span class="n">attack</span><span class="p">)</span> <span class="o">:</span><span class="n">Role</span><span class="p">(</span><span class="n">life</span><span class="p">,</span> <span class="n">magic</span><span class="p">,</span> <span class="n">attack</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"创建C角色"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">RoleFactory</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">Role</span><span class="o">*</span> <span class="n">createRole</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">roletype</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Role</span><span class="o">*</span> <span class="n">p_Role</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">roletype</span><span class="o">==</span><span class="s">"A"</span><span class="p">)</span>
+			<span class="n">p_Role</span><span class="o">=</span><span class="k">new</span> <span class="n">R_A</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">roletype</span><span class="o">==</span><span class="s">"C"</span><span class="p">)</span>
+			<span class="n">p_Role</span> <span class="o">=</span> <span class="k">new</span> <span class="n">R_C</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">roletype</span> <span class="o">==</span> <span class="s">"B"</span><span class="p">)</span>
+			<span class="n">p_Role</span> <span class="o">=</span> <span class="k">new</span> <span class="n">R_B</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">800</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">p_Role</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">RoleFactory</span> <span class="n">rolefactory</span><span class="p">;</span>
+	<span class="n">Role</span><span class="o">*</span> <span class="n">p_role1</span> <span class="o">=</span> <span class="n">rolefactory</span><span class="p">.</span><span class="n">createRole</span><span class="p">(</span><span class="s">"A"</span><span class="p">);</span>
+	<span class="n">Role</span><span class="o">*</span> <span class="n">p_role2</span> <span class="o">=</span> <span class="n">rolefactory</span><span class="p">.</span><span class="n">createRole</span><span class="p">(</span><span class="s">"C"</span><span class="p">);</span>
+	<span class="n">Role</span><span class="o">*</span> <span class="n">p_role3</span> <span class="o">=</span> <span class="n">rolefactory</span><span class="p">.</span><span class="n">createRole</span><span class="p">(</span><span class="s">"B"</span><span class="p">);</span>
+	<span class="k">delete</span> <span class="n">p_role1</span><span class="p">;</span>
+	<span class="k">delete</span> <span class="n">p_role2</span><span class="p">;</span>
+	<span class="k">delete</span> <span class="n">p_role3</span><span class="p">;</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>由于创建角色与角色工厂本身无关，所以可以使用static方法，也就是是静态工厂方法模式</p>
+
+<pre><code class="language-C++">#include &lt;iostream&gt;
+class Role {
+public:
+	Role(int life, int magic, int attack) :m_life(life), m_magic(magic), m_attack(attack) {}
+	virtual ~Role() {}
+protected:
+	int m_life;
+	int m_magic;
+	int m_attack;
+};
+
+class R_A :public Role {
+public:
+	R_A(int life, int magic, int attack) :Role(life, magic, attack)
+	{
+		std::cout &lt;&lt; "创建A角色" &lt;&lt; std::endl;
+	}
+};
+class R_B :public Role {
+public:
+	R_B(int life, int magic, int attack) :Role(life, magic, attack)
+	{
+		std::cout &lt;&lt; "创建B角色" &lt;&lt; std::endl;
+	}
+};
+class R_C :public Role {
+public:
+	R_C(int life, int magic, int attack) :Role(life, magic, attack)
+	{
+		std::cout &lt;&lt; "创建C角色" &lt;&lt; std::endl;
+	}
+};
+class RoleFactory
+{
+public:
+	static Role* createRole(std::string roletype)
+	{
+		Role* p_Role = nullptr;
+		if (roletype == "A")
+			p_Role = new R_A(300, 400, 1000);
+		else if (roletype == "C")
+			p_Role = new R_C(1000, 400, 500);
+		else if (roletype == "B")
+			p_Role = new R_B(400, 400, 800);
+		return p_Role;
+	}
+};
+
+int main() {
+	Role* p_role1 = RoleFactory::createRole("A");
+	Role* p_role2 = RoleFactory::createRole("C");
+	Role* p_role3 = RoleFactory::createRole("B");
+	delete p_role1;
+	delete p_role2;
+	delete p_role3;
+	return 0;
+}
+</code></pre>
+
+<h2 id="缺点">缺点</h2>
+
+<p>当引入新的子类时，需要修改createRole函数的源码，违背了开闭准则</p>
+
+<h2 id="使用场景">使用场景</h2>
+
+<h2 id="相关模式">相关模式</h2>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="设计模式" /><summary type="html"><![CDATA[实例化的活动不应该总是公开地进行，为了避免初始化总是造成耦合问题，将两者解耦]]></summary></entry><entry><title type="html">享元模式</title><link href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-15-design-pattern/" rel="alternate" type="text/html" title="享元模式" /><published>2023-09-15T00:00:00+08:00</published><updated>2023-10-10T00:18:09+08:00</updated><id>http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/design-pattern</id><content type="html" xml:base="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-15-design-pattern/"><![CDATA[<p>本文介绍享元模式</p>
 
 <h2 id="简介">简介</h2>
 
@@ -238,246 +390,7 @@ int main()
 <ol>
   <li>简单工厂模式</li>
   <li>单件模式</li>
-</ol>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[享元模式]]></summary></entry><entry><title type="html">享元模式</title><link href="http://localhost:4000/design%20pattern/2023-10-08-design-pattern;example/" rel="alternate" type="text/html" title="享元模式" /><published>2023-10-08T00:00:00+08:00</published><updated>2023-10-09T21:48:00+08:00</updated><id>http://localhost:4000/design%20pattern/design%20pattern;example</id><content type="html" xml:base="http://localhost:4000/design%20pattern/2023-10-08-design-pattern;example/"><![CDATA[<p>本文介绍享元模式</p>
-
-<h2 id="简介">简介</h2>
-
-<p>模式：享元模式</p>
-
-<p>英文：flyweight</p>
-
-<p>定义：使用共享技术有效地支持大量细粒度的对象的复用，从而到达使用大量相似对象的同样的效果。</p>
-
-<p>命名由来：flyweight是特轻量级，蝇量级的意思</p>
-
-<p>意图：在同类对象十分多的情况下，改变模式，当需要某个对象时，尽量共用已经创建出来的同类对象，从而避免频繁new，节约内存，提高效率。</p>
-
-<h2 id="概念">概念</h2>
-
-<p>享元：被共享的单元或者对象</p>
-
-<p>内部状态：存储在享元对象内部的，一直不会发生改变的状态，这种状态可以被共享，一般可以作为享元类的成员变量</p>
-
-<p>外部状态：随着外部环境改变而改变的状态，不可以被共享</p>
-
-<p>总之，将内部状态相同的对象存储在享元池中，传递不同的外部状态。确定内部状态的时候，需要将在多个地方共享的成员变量作为享元对象的内部状态</p>
-
-<h3 id="享元池">享元池</h3>
-
-<p>享元模式中使用了简单工厂，这个工厂一般用于创建享元对象，并保存在一个容器中，这个容器专门用于保存一个或者多个享元对象，称为享元池</p>
-
-<p>享元池的引入造成了程序的复杂性，需要衡量性价比</p>
-
-<p>享元池和对象池，连接池，线程池都可以看成是对象的复用，但是后三者强调储备量，比如线程池可以规定线程池中线程数最多为多少，但是享元池强调的是创建对象这个过程可以使用享元池中的已有一种对象进行代替</p>
-
-<h2 id="代码结构">代码结构</h2>
-
-<p>一般由以下几个部分组成</p>
-
-<ol>
-  <li>抽象享元类：Piece</li>
-  <li>具体享元类：BlackPiece，可以考虑使用单件模式实现</li>
-  <li>享元工厂类：pieceFactory，可以考虑使用单件模式实现</li>
-</ol>
-
-<h2 id="代码">代码</h2>
-
-<p>使用享元模式前：</p>
-
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span><span class="cpf">&lt;list&gt;</span><span class="cp">
-</span>
-<span class="k">enum</span> <span class="n">EnumColor</span> <span class="p">{</span>
-	<span class="n">Black</span><span class="p">,</span><span class="n">White</span>
-<span class="p">};</span>
-<span class="k">struct</span> <span class="nc">Position</span> <span class="p">{</span>
-	<span class="kt">int</span> <span class="n">m_x</span><span class="p">;</span>
-	<span class="kt">int</span> <span class="n">m_y</span><span class="p">;</span>
-	<span class="n">Position</span><span class="p">(</span><span class="kt">int</span> <span class="n">tmpx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tmpy</span><span class="p">)</span> <span class="o">:</span><span class="n">m_x</span><span class="p">(</span><span class="n">tmpx</span><span class="p">),</span> <span class="n">m_y</span><span class="p">(</span><span class="n">tmpy</span><span class="p">){}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">Piece</span>
-<span class="p">{</span>
-<span class="nl">public:</span>
-	<span class="n">Piece</span><span class="p">(</span><span class="n">EnumColor</span> <span class="n">tmpcolor</span><span class="p">,</span> <span class="n">Position</span> <span class="n">tmppos</span><span class="p">)</span> <span class="o">:</span><span class="n">m_color</span><span class="p">(</span><span class="n">tmpcolor</span><span class="p">),</span> <span class="n">m_pos</span><span class="p">(</span><span class="n">tmppos</span><span class="p">)</span> <span class="p">{</span>
-
-	<span class="p">}</span>
-	<span class="kt">void</span> <span class="nf">draw</span><span class="p">();</span>
-<span class="k">private</span><span class="o">:</span>
-	<span class="n">EnumColor</span> <span class="n">m_color</span><span class="p">;</span>
-	<span class="n">Position</span> <span class="n">m_pos</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="kt">void</span> <span class="n">Piece</span><span class="o">::</span><span class="n">draw</span><span class="p">()</span>
-<span class="p">{</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">m_color</span> <span class="o">==</span> <span class="n">Black</span><span class="p">){</span>
-		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"绘制黑棋于"</span> <span class="o">&lt;&lt;</span> <span class="n">m_pos</span><span class="p">.</span><span class="n">m_x</span> <span class="o">&lt;&lt;</span> <span class="s">","</span> <span class="o">&lt;&lt;</span> <span class="n">m_pos</span><span class="p">.</span><span class="n">m_y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-	<span class="p">}</span>
-	<span class="k">else</span> <span class="p">{</span>
-		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"绘制白棋于"</span> <span class="o">&lt;&lt;</span> <span class="n">m_pos</span><span class="p">.</span><span class="n">m_x</span> <span class="o">&lt;&lt;</span> <span class="s">","</span> <span class="o">&lt;&lt;</span> <span class="n">m_pos</span><span class="p">.</span><span class="n">m_y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-
-	<span class="n">Piece</span><span class="o">*</span> <span class="n">p_piece1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Piece</span><span class="p">(</span><span class="n">Black</span><span class="p">,</span> <span class="n">Position</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
-	<span class="n">p_piece1</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span>
-
-	<span class="n">Piece</span><span class="o">*</span> <span class="n">p_piece2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Piece</span><span class="p">(</span><span class="n">White</span><span class="p">,</span> <span class="n">Position</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
-	<span class="n">p_piece2</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span>
-
-	<span class="n">Piece</span><span class="o">*</span> <span class="n">p_piece3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Piece</span><span class="p">(</span><span class="n">Black</span><span class="p">,</span> <span class="n">Position</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
-	<span class="n">p_piece3</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span>
-
-	<span class="n">std</span><span class="o">::</span><span class="n">list</span> <span class="o">&lt;</span><span class="n">Piece</span><span class="o">*&gt;</span><span class="n">piece_list</span><span class="p">;</span>
-	<span class="n">piece_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p_piece1</span><span class="p">);</span>
-	<span class="n">piece_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p_piece2</span><span class="p">);</span>
-	<span class="n">piece_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p_piece3</span><span class="p">);</span>
-
-	<span class="k">delete</span> <span class="n">p_piece1</span><span class="p">;</span>
-	<span class="k">delete</span> <span class="n">p_piece2</span><span class="p">;</span>
-	<span class="k">delete</span> <span class="n">p_piece3</span><span class="p">;</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>使用享元模式后：</p>
-
-<pre><code class="language-C++">#include&lt;iostream&gt;
-#include&lt;list&gt;
-#include&lt;map&gt;
-enum EnumColor {
-	Black, White
-};
-struct Position {
-	int m_x;
-	int m_y;
-	Position(int tmpx, int tmpy) :m_x(tmpx), m_y(tmpy) {}
-};
-class Piece
-{
-public:
-	virtual ~Piece() {};
-	virtual void draw(Position tmppos)=0;
-};
-class BlackPiece:public Piece {
-public:
-	virtual void draw(Position tmppos) {
-		std::cout &lt;&lt; "绘制黑棋于" &lt;&lt; tmppos.m_x &lt;&lt; "," &lt;&lt; tmppos.m_y &lt;&lt; std::endl;
-	}
-};
-class WhitePiece :public Piece {
-public:
-	virtual void draw(Position tmppos) {
-		std::cout &lt;&lt; "绘制白棋于" &lt;&lt; tmppos.m_x &lt;&lt; "," &lt;&lt; tmppos.m_y &lt;&lt; std::endl;
-	}
-};
-class pieceFactory {
-public:
-	~pieceFactory()
-	{
-		for (auto iter = m_FlyWeightMap.begin(); iter != m_FlyWeightMap.end(); iter++)
-		{
-			Piece* tmpfw = iter-&gt;second;
-			delete tmpfw;
-		}
-		m_FlyWeightMap.clear();
-	}
-	Piece* getFlyWeight(EnumColor tmpcolor)
-	{
-		auto iter = m_FlyWeightMap.find(tmpcolor);
-		if(iter==m_FlyWeightMap.end())
-		{
-			Piece* tmpfw = nullptr;
-			if (tmpcolor == Black) tmpfw = new BlackPiece();
-			else tmpfw = new WhitePiece();
-			m_FlyWeightMap.insert(std::make_pair(tmpcolor, tmpfw));
-			return tmpfw;
-		}
-		else 
-			return iter-&gt;second;
-	}
-private:
-	std::map&lt;EnumColor, Piece*&gt;m_FlyWeightMap;
-};
-int main()
-{
-	pieceFactory* pfactory = new pieceFactory();
-	Piece* p_piece1 = pfactory-&gt;getFlyWeight(Black);
-	p_piece1-&gt;draw(Position(3, 3));
-
-	Piece* p_piece2 = pfactory-&gt;getFlyWeight(Black);
-	p_piece2-&gt;draw(Position(5, 5));
-
-	Piece* p_piece3 = pfactory-&gt;getFlyWeight(Black);
-	p_piece3-&gt;draw(Position(4, 6));
-
-	Piece* p_piece4 = pfactory-&gt;getFlyWeight(Black);
-	p_piece4-&gt;draw(Position(5, 7));
-
-	delete pfactory;
-	return 0;
-}
-</code></pre>
-
-<p>关闭命令行输出时两种代码创建相同数量的类的运行速度：</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>对象数/ms</th>
-      <th>普通模式</th>
-      <th>享元模式</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1000（波动大）</td>
-      <td>400</td>
-      <td>170-356</td>
-    </tr>
-    <tr>
-      <td>一万</td>
-      <td>2572</td>
-      <td>1800-2200</td>
-    </tr>
-    <tr>
-      <td>十万</td>
-      <td>19643-33911</td>
-      <td>15749-16401</td>
-    </tr>
-    <tr>
-      <td>百万</td>
-      <td>249130-216128</td>
-      <td>159932</td>
-    </tr>
-    <tr>
-      <td>千万</td>
-      <td>2417764-2123181</td>
-      <td>1616665-1656742</td>
-    </tr>
-    <tr>
-      <td>一亿</td>
-      <td>19677707-20324193</td>
-      <td>15560363</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>可以看出来性能提升还不小，优化了25%左右</p>
-
-<h2 id="使用场景">使用场景</h2>
-
-<ol>
-  <li>程序中有大量相同或者相似的对象造成内存的大量消耗</li>
-  <li>对象的大部分状态可以定义为外部状态作为参数传入</li>
-</ol>
-
-<h2 id="相关模式">相关模式</h2>
-
-<ol>
-  <li>简单工厂模式</li>
-  <li>单件模式</li>
-</ol>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="design pattern" /><summary type="html"><![CDATA[享元模式]]></summary></entry><entry><title type="html">介绍tensorrt 8.6.1</title><link href="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/" rel="alternate" type="text/html" title="介绍tensorrt 8.6.1" /><published>2023-09-03T00:00:00+08:00</published><updated>2023-10-09T00:36:33+08:00</updated><id>http://localhost:4000/example/tensorrt-tensorrt%E7%AE%80%E4%BB%8B</id><content type="html" xml:base="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/"><![CDATA[<p>以下介绍tensorrt 8.6.1版本的内容</p>
+</ol>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="设计模式" /><summary type="html"><![CDATA[在同类对象十分多的情况下，改变模式，当需要某个对象时，尽量共用已经创建出来的同类对象，从而避免频繁创建，节约内存，提高效率]]></summary></entry><entry><title type="html">介绍tensorrt 8.6.1</title><link href="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/" rel="alternate" type="text/html" title="介绍tensorrt 8.6.1" /><published>2023-09-03T00:00:00+08:00</published><updated>2023-10-09T00:36:33+08:00</updated><id>http://localhost:4000/example/tensorrt-tensorrt%E7%AE%80%E4%BB%8B</id><content type="html" xml:base="http://localhost:4000/example/2023-09-03-tensorrt-tensorrt%E7%AE%80%E4%BB%8B/"><![CDATA[<p>以下介绍tensorrt 8.6.1版本的内容</p>
 
 <h1 id="目录">目录</h1>
 
@@ -889,469 +802,43 @@ int main()
   <li>使用最新的tensorrt8</li>
   <li>使用explicit batch模式，是onnx格式默认格式</li>
   <li>使用dynamic shape模式</li>
-</ol>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[tensorrt是常用算法部署工具]]></summary></entry><entry><title type="html">Introducing Hydejack 9</title><link href="http://localhost:4000/example/2020-07-03-introducing-hydejack-9/" rel="alternate" type="text/html" title="Introducing Hydejack 9" /><published>2020-07-03T00:00:00+08:00</published><updated>2023-10-06T01:27:20+08:00</updated><id>http://localhost:4000/example/introducing-hydejack-9</id><content type="html" xml:base="http://localhost:4000/example/2020-07-03-introducing-hydejack-9/"><![CDATA[<p class="lead">Version 9 is the most complete version of Hydejack yet.</p>
+</ol>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[tensorrt是常用算法部署工具]]></summary></entry><entry><title type="html">模版方法模式</title><link href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/" rel="alternate" type="text/html" title="模版方法模式" /><published>2023-09-01T00:00:00+08:00</published><updated>2023-10-10T00:19:08+08:00</updated><id>http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/design-pattern</id><content type="html" xml:base="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/"><![CDATA[<p>本文介绍模版方法模式</p>
 
-<p><a href="#linking-in-style">Modernized</a> <a href="#whats-in-the-cards">design</a>, <a href="#ready-for-the-big-screen">big headlines</a>, big new features: <a href="#built-in-search">Built-In Search</a>, <a href="#sticky-table-of-contents">Sticky Table of Contents</a>, and <a href="#auto-hiding-navbar">Auto-Hiding Navbar</a>. That <a href="#and-much-more">and more</a> is Hydejack 9.</p>
+<h2 id="简介">简介</h2>
 
-<ul class="large-only" id="markdown-toc">
-  <li><a href="#linking-in-style" id="markdown-toc-linking-in-style">Linking in Style</a></li>
-  <li><a href="#ready-for-the-big-screen" id="markdown-toc-ready-for-the-big-screen">Ready for the Big Screen</a></li>
-  <li><a href="#whats-in-the-cards" id="markdown-toc-whats-in-the-cards">What’s in the Cards?</a></li>
-  <li><a href="#built-in-search" id="markdown-toc-built-in-search">Built-In Search</a></li>
-  <li><a href="#auto-hiding-navbar" id="markdown-toc-auto-hiding-navbar">Auto-Hiding Navbar</a></li>
-  <li><a href="#sticky-table-of-contents" id="markdown-toc-sticky-table-of-contents">Sticky Table of Contents</a></li>
-  <li><a href="#and-much-more" id="markdown-toc-and-much-more">…and much more</a></li>
-  <li><a href="#even-more-to-come" id="markdown-toc-even-more-to-come">Even More to Come</a></li>
-  <li><a href="#get-it-now" id="markdown-toc-get-it-now">Get It Now</a></li>
-</ul>
+<p>模式名：模版方法模式</p>
 
-<h2 id="linking-in-style">Linking in Style</h2>
+<p>英文：template method</p>
 
-<p>Ever since the introduction of Dark Mode, link styles have been a bit of an issue. Specifically, finding an accent color that worked on both light and dark backgrounds was the problem. With Hydejack 9, the <a href="#linking-in-style">link style</a> has been revamped so that legibility is no longer tied to the choice of accent_color, giving you much more freedom in creating a unique design flavor for your site.</p>
+<p>定义：由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现。</p>
 
-<h2 id="ready-for-the-big-screen">Ready for the Big Screen</h2>
-
-<p>The theme on which Hydejack is based was designed for a different era of the web. Hydejack has inherited many of its limitations, but over time I’ve made adjustments, such as centering the content column for better reading ergonomics.</p>
-
-<p>With version 9, Hydejack takes full advantage of large displays. Whether it’s design indulgences such as oversized headlines, or quality of life improvements such as a floating table of contents, Hydejack now finds use for all that extra screen real estate<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
-
-<h2 id="whats-in-the-cards">What’s in the Cards?</h2>
-
-<p>Hydejack 9 now lets you use content cards for both projects and posts. 
-The cards have been redesigned with a new hover style and drop shadows and they retain their unique transition-to-next-page animations, which now also work on the <code class="language-plaintext highlighter-rouge">blog</code> layout. The new <code class="language-plaintext highlighter-rouge">grid</code> layout lets you do that.</p>
-
-<p>Good images are key to making the most out of content cards. For that reason, a <a href="/docs/basics/#adding-images">chapter on images</a> has been added to the documentation.</p>
-
-<h2 id="built-in-search">Built-In Search</h2>
-
-<p>Hydejack now has Built-In Search. It even works offline. I’ve been prototyping many approaches and eventually settled on a fully client-side, off-the-main thread solution that perfectly fits the use case of personal sites and shows surprisingly good results<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</p>
-
-<p>The new search UI is custom made for Hydejack and shows beautiful previews of your posts and pages, right on top of your regular content.</p>
-
-<p>Together with the Auto-Hiding Navbar, your entire content library is now only a couple of keystrokes away.</p>
-
-<h2 id="auto-hiding-navbar">Auto-Hiding Navbar</h2>
-
-<p>A navbar that’s there when you need it, and disappears when you don’t. Simple as that.</p>
-
-<h2 id="sticky-table-of-contents">Sticky Table of Contents</h2>
-
-<p>Already a staple on so many sites on the web, this pattern is now also available in Hydejack. 
-What’s unique about it is that it simply picks up the table of contents already created by kramdown’s <code class="language-plaintext highlighter-rouge">{:toc}</code> tag and transparently upgrades it to a fully dynamic version.</p>
-
-<h2 id="and-much-more">…and much more</h2>
-
-<p>Other noteworthy changes include:</p>
-<ul>
-  <li>Support for Jekyll 4</li>
-  <li>Choice between MathJax and KaTeX for math rendering</li>
-  <li>Use of <code class="language-plaintext highlighter-rouge">jekyll-include-cache</code> for drastically improved page building speeds</li>
-  <li>New variables configuration file — adjust content width, sidebar width, font size, etc…</li>
-  <li>…and the option to disable grouping projects by year.</li>
-</ul>
-
-<p>Read the the <a href="/CHANGELOG/" class="heading flip-title">CHANGELOG</a> for the full scope of features and improvements made in Hydejack 9.
-Maybe just glance at it to confirm that it is indeed a pretty long list.</p>
-
-<h2 id="even-more-to-come">Even More to Come</h2>
-
-<p>New features for 9.1 are already lined up. Code block headers and code line highlights for even better technical blogging, as well as download buttons on the resume page for PDF, vCard, and Resume JSON are just around the corner.</p>
-
-<h2 id="get-it-now">Get It Now</h2>
-<p>The Free Version of Hydejack is now availabe on <a href="https://rubygems.org/gems/jekyll-theme-hydejack">RubyGems</a>
-and for the first time also on <a href="https://github.com/hydecorp/hydejack/packages">GitHub Packages</a>. 
-The source code is available on <a href="https://github.com/hydecorp/hydejack">GitHub</a> as always.</p>
-
-<p>The PRO Version is scheduled to release on July 7th on Gumroad. Pre-Orders are open now:</p>
-
-<div class="gumroad-product-embed" data-gumroad-product-id="nuOluY"><a href="https://gumroad.com/l/nuOluY">Loading…</a></div>
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>If you are a fan of the old two-column layout, or don’t like modern design tropes such as mega headlines, Hydejack lets you revert these changes on a case-by-case basis via configuration options. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-    </li>
-    <li id="fn:2" role="doc-endnote">
-
-      <p>Search was mainly tested for English and German. Please let me know about issues in other languages. 
-  While I’ve tried to find a multi-language solution, most showed drastically worse  results for the English base case.
-  If you’re technically inclined, you can adopt the code located in <code class="language-plaintext highlighter-rouge">_includes/js/search-worker.js</code> to your needs. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[Version 9 is the most complete version of Hydejack yet. Modernized design, big headlines, and big new features.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/blog/jeremy-bishop@0,5x.jpg" /><media:content medium="image" url="http://localhost:4000/assets/img/blog/jeremy-bishop@0,5x.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Example Content III</title><link href="http://localhost:4000/example/2018-06-01-example-content-iii/" rel="alternate" type="text/html" title="Example Content III" /><published>2018-06-01T00:00:00+08:00</published><updated>2023-10-06T01:27:20+08:00</updated><id>http://localhost:4000/example/example-content-iii</id><content type="html" xml:base="http://localhost:4000/example/2018-06-01-example-content-iii/"><![CDATA[<p>Hydejack offers a few additional features to markup your markdown.
-Don’t worry, these are merely CSS classes added with kramdown’s <code class="language-plaintext highlighter-rouge">{:...}</code> syntax,
-so that your content remains compatible with other Jekyll themes.</p>
-
-<h2 id="large-tables">Large Tables</h2>
-
-<table class="scroll-table">
-  <thead>
-    <tr>
-      <th>Default aligned</th>
-      <th style="text-align: left">Left aligned</th>
-      <th style="text-align: center">Center aligned</th>
-      <th style="text-align: right">Right aligned</th>
-      <th>Default aligned</th>
-      <th style="text-align: left">Left aligned</th>
-      <th style="text-align: center">Center aligned</th>
-      <th style="text-align: right">Right aligned</th>
-      <th>Default aligned</th>
-      <th style="text-align: left">Left aligned</th>
-      <th style="text-align: center">Center aligned</th>
-      <th style="text-align: right">Right aligned</th>
-      <th>Default aligned</th>
-      <th style="text-align: left">Left aligned</th>
-      <th style="text-align: center">Center aligned</th>
-      <th style="text-align: right">Right aligned</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>First body part</td>
-      <td style="text-align: left">Second cell</td>
-      <td style="text-align: center">Third cell</td>
-      <td style="text-align: right">fourth cell</td>
-      <td>First body part</td>
-      <td style="text-align: left">Second cell</td>
-      <td style="text-align: center">Third cell</td>
-      <td style="text-align: right">fourth cell</td>
-      <td>First body part</td>
-      <td style="text-align: left">Second cell</td>
-      <td style="text-align: center">Third cell</td>
-      <td style="text-align: right">fourth cell</td>
-      <td>First body part</td>
-      <td style="text-align: left">Second cell</td>
-      <td style="text-align: center">Third cell</td>
-      <td style="text-align: right">fourth cell</td>
-    </tr>
-    <tr>
-      <td>Second line</td>
-      <td style="text-align: left">foo</td>
-      <td style="text-align: center"><strong>strong</strong></td>
-      <td style="text-align: right">baz</td>
-      <td>Second line</td>
-      <td style="text-align: left">foo</td>
-      <td style="text-align: center"><strong>strong</strong></td>
-      <td style="text-align: right">baz</td>
-      <td>Second line</td>
-      <td style="text-align: left">foo</td>
-      <td style="text-align: center"><strong>strong</strong></td>
-      <td style="text-align: right">baz</td>
-      <td>Second line</td>
-      <td style="text-align: left">foo</td>
-      <td style="text-align: center"><strong>strong</strong></td>
-      <td style="text-align: right">baz</td>
-    </tr>
-    <tr>
-      <td>Third line</td>
-      <td style="text-align: left">quux</td>
-      <td style="text-align: center">baz</td>
-      <td style="text-align: right">bar</td>
-      <td>Third line</td>
-      <td style="text-align: left">quux</td>
-      <td style="text-align: center">baz</td>
-      <td style="text-align: right">bar</td>
-      <td>Third line</td>
-      <td style="text-align: left">quux</td>
-      <td style="text-align: center">baz</td>
-      <td style="text-align: right">bar</td>
-      <td>Third line</td>
-      <td style="text-align: left">quux</td>
-      <td style="text-align: center">baz</td>
-      <td style="text-align: right">bar</td>
-    </tr>
-    <tr>
-      <td>Second body</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Second body</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Second body</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Second body</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td>2 line</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>2 line</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>2 line</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>2 line</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td>Footer row</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Footer row</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Footer row</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-      <td>Footer row</td>
-      <td style="text-align: left"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="code-blocks">Code blocks</h2>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example can be run directly in your JavaScript console</span>
-
-<span class="c1">// Create a function that takes two arguments and returns the sum of those</span>
-<span class="c1">// arguments</span>
-<span class="kd">var</span> <span class="nx">adder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Function</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">return a + b</span><span class="dl">"</span><span class="p">);</span>
-
-<span class="c1">// Call the function</span>
-<span class="nf">adder</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
-<span class="c1">// &gt; 8</span>
-</code></pre></div></div>
-
-<h2 id="math">Math</h2>
-<p>Lorem ipsum \(f(x) = x^2\).</p>
-
-\[\begin{aligned}
-  \phi(x,y) &amp;= \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right) \\[2em]
-            &amp;= \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j)            \\[2em]
-            &amp;= (x_1, \ldots, x_n)
-               \left(\begin{array}{ccc}
-                 \phi(e_1, e_1)  &amp; \cdots &amp; \phi(e_1, e_n) \\
-                 \vdots          &amp; \ddots &amp; \vdots         \\
-                 \phi(e_n, e_1)  &amp; \cdots &amp; \phi(e_n, e_n)
-               \end{array}\right)
-               \left(\begin{array}{c}
-                 y_1    \\
-                 \vdots \\
-                 y_n
-               \end{array}\right)
-\end{aligned}\]
-
-<h2 id="message-boxes">Message boxes</h2>
-<p class="message"><strong>NOTE</strong>: You can add a message box.</p>
-
-<h2 id="large-text">Large text</h2>
-<p class="lead">You can add large text.</p>
-
-<h2 id="large-images">Large images</h2>
-<p><img src="https://via.placeholder.com/800x100" alt="Full-width image" class="lead" width="800" height="100" /></p>
-
-<h2 id="captions-to-images">Captions to images</h2>
-<p class="figure"><img src="https://via.placeholder.com/800x100" alt="Full-width image" class="lead" width="800" height="100" />
-A caption to an image.</p>
-
-<h2 id="large-quotes">Large quotes</h2>
-<blockquote class="lead">
-  <p>You can make a quote “pop out”.</p>
-</blockquote>
-
-<h2 id="faded-text">Faded text</h2>
-<p class="faded">I’m faded, faded, faded.</p>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[A page showing Hydejack-specific markdown content.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/blog/example-content-iii.jpg" /><media:content medium="image" url="http://localhost:4000/assets/img/blog/example-content-iii.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Example Content II</title><link href="http://localhost:4000/example/2017-11-23-example-content-ii/" rel="alternate" type="text/html" title="Example Content II" /><published>2017-11-23T00:00:00+08:00</published><updated>2023-10-06T01:27:20+08:00</updated><id>http://localhost:4000/example/example-content-ii</id><content type="html" xml:base="http://localhost:4000/example/2017-11-23-example-content-ii/"><![CDATA[<p>There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.</p>
-
-<p>There should be whitespace between paragraphs.</p>
-
-<p>Text can be <strong>bold</strong>, <em>italic</em>, or <del>strikethrough</del>.</p>
-
-<p><a href="another-page">Link to another page</a>.</p>
-
-<ul class="large-only" id="markdown-toc">
-  <li><a href="#header-2" id="markdown-toc-header-2">Header 2</a>    <ul>
-      <li><a href="#header-3" id="markdown-toc-header-3">Header 3</a>        <ul>
-          <li><a href="#header-4" id="markdown-toc-header-4">Header 4</a>            <ul>
-              <li><a href="#header-5" id="markdown-toc-header-5">Header 5</a>                <ul>
-                  <li><a href="#header-6" id="markdown-toc-header-6">Header 6</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><a href="#theres-a-horizontal-rule-below-this" id="markdown-toc-theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</a></li>
-      <li><a href="#here-is-an-unordered-list" id="markdown-toc-here-is-an-unordered-list">Here is an unordered list:</a></li>
-      <li><a href="#and-an-ordered-list" id="markdown-toc-and-an-ordered-list">And an ordered list:</a></li>
-      <li><a href="#and-a-nested-list" id="markdown-toc-and-a-nested-list">And a nested list:</a></li>
-      <li><a href="#small-image" id="markdown-toc-small-image">Small image</a></li>
-      <li><a href="#large-image" id="markdown-toc-large-image">Large image</a></li>
-      <li><a href="#definition-lists" id="markdown-toc-definition-lists">Definition lists</a></li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="header-2">Header 2</h2>
-
-<p>This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.</p>
-
-<h3 id="header-3">Header 3</h3>
-
-<blockquote>
-  <p>This is a blockquote following a header.</p>
-
-  <p>When something is important enough, you do it even if the odds are not in your favor.</p>
-</blockquote>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Javascript code with syntax highlighting.</span>
-<span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span> <span class="nf">lang</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">dateformat</span><span class="p">.</span><span class="nx">i18n</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./lang/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">l</span><span class="p">)</span>
-  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Ruby code with syntax highlighting</span>
-<span class="no">GitHubPages</span><span class="o">::</span><span class="no">Dependencies</span><span class="p">.</span><span class="nf">gems</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="p">,</span> <span class="n">version</span><span class="o">|</span>
-  <span class="n">s</span><span class="p">.</span><span class="nf">add_dependency</span><span class="p">(</span><span class="n">gem</span><span class="p">,</span> <span class="s2">"= </span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<h4 id="header-4">Header 4</h4>
-
-<ul>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
-</ul>
-
-<h5 id="header-5">Header 5</h5>
-
-<ol>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-</ol>
-
-<h6 id="header-6">Header 6</h6>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">head1</th>
-      <th style="text-align: left">head two</th>
-      <th style="text-align: left">three</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good swedish fish</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">out of stock</td>
-      <td style="text-align: left">good and plenty</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">oreos</code></td>
-      <td style="text-align: left">hmm</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">zoute</code> drop</td>
-      <td style="text-align: left">yumm</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</h3>
-
-<hr />
-
-<h3 id="here-is-an-unordered-list">Here is an unordered list:</h3>
-
-<ul>
-  <li>Item foo</li>
-  <li>Item bar</li>
-  <li>Item baz</li>
-  <li>Item zip</li>
-</ul>
-
-<h3 id="and-an-ordered-list">And an ordered list:</h3>
-
-<ol>
-  <li>Item one</li>
-  <li>Item two</li>
-  <li>Item three</li>
-  <li>Item four</li>
-</ol>
-
-<h3 id="and-a-nested-list">And a nested list:</h3>
-
-<ul>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item
-        <ul>
-          <li>level 3 item</li>
-          <li>level 3 item</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item</li>
-</ul>
-
-<h3 id="small-image">Small image</h3>
-
-<p><img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png" alt="" /></p>
-
-<h3 id="large-image">Large image</h3>
-
-<p><img src="https://guides.github.com/activities/hello-world/branching.png" alt="" /></p>
-
-<h3 id="definition-lists">Definition lists</h3>
-
-<dl>
-  <dt>Name</dt>
-  <dd>Godzilla</dd>
-  <dt>Born</dt>
-  <dd>1952</dd>
-  <dt>Birthplace</dt>
-  <dd>Japan</dd>
-  <dt>Color</dt>
-  <dd>Green</dd>
-</dl>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this. Or is it?
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The final element.
-</code></pre></div></div>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="example" /><summary type="html"><![CDATA[A page showing how regular markdown content is styled in Hydejack.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/blog/example-content-ii.jpg" /><media:content medium="image" url="http://localhost:4000/assets/img/blog/example-content-ii.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Example Content</title><link href="http://localhost:4000/example/2012-02-07-example-content/" rel="alternate" type="text/html" title="Example Content" /><published>2012-02-07T00:00:00+08:00</published><updated>2023-10-06T01:27:20+08:00</updated><id>http://localhost:4000/example/example-content</id><content type="html" xml:base="http://localhost:4000/example/2012-02-07-example-content/"><![CDATA[<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. <em>Aenean eu leo quam.</em> Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+<p>命名由来：某个成员方法，称为A，固定调用某几个成员方法，故称A为模版方法，这种方法叫做模版方法模式</p>
+
+<p>意图：定义一个操作的算法骨架，将一些步骤延迟到子类实现，通过父类定义虚函数，子类重写/实现来做到</p>
+
+<h2 id="概念">概念</h2>
+
+<h3 id="早绑定与晚绑定">早绑定与晚绑定</h3>
+
+<p>早绑定：编译阶段就知道代码调用的哪个类的方法</p>
+
+<p>晚绑定：父类指针指向子类对象，运行期间才能知道调用哪种方法</p>
+
+<h3 id="钩子方法hook">钩子方法hook</h3>
+
+<p>子类可以控制父类的行为的方法</p>
+
+<h2 id="使用场景">使用场景</h2>
+
+<h3 id="mfc">MFC</h3>
+
+<p>MFC创建对话框的应用程序</p>
+
+<h3 id="车间">车间</h3>
+
+<p>零件装配工序固定，则针对零件创建一个父类，零件装配工序采用模版方法模式来实现，处理某道工序的细节可以放在子类的虚函数中</p>
+
+<h2 id="相关模式">相关模式</h2>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="设计模式" /><summary type="html"><![CDATA[由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现]]></summary></entry><entry><title type="html">Example Content</title><link href="http://localhost:4000/example/2012-02-07-example-content/" rel="alternate" type="text/html" title="Example Content" /><published>2012-02-07T00:00:00+08:00</published><updated>2023-10-06T01:27:20+08:00</updated><id>http://localhost:4000/example/example-content</id><content type="html" xml:base="http://localhost:4000/example/2012-02-07-example-content/"><![CDATA[<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. <em>Aenean eu leo quam.</em> Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
 
 <blockquote>
   <p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>

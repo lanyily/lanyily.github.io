@@ -12,6 +12,11 @@
 # NOTE: You don't need to provide this property when hosting on GitHub Pages or Netlify.
 # baseurl:               '/hydejack-starter-kit'
 
+# Theme
+# ---------------------------------------------------------------------------------------
+# 修改为远程的主题
+# theme: jekyll-theme-hydejack
+remote_theme: hydecorp/hydejack@v9
 
 # General settings
 # ---------------------------------------------------------------------------------------
@@ -47,12 +52,20 @@ author:
   # # Used by `jekyll-seo-tag`:
   # twitter:             <username>
 
-# Add links to the sidebar.
+# Add links to the sidebar. 标题界面
 menu:
-  - title:             Example
-    url:               /example/
-  - title:             Documentation
+  - title:             C++
+    url:               /about/
+  - title:             Cuda
+    url:               /about/    
+  - title:             23种设计模式
+    url:               /设计模式/
+  - title:             音视频处理
+    url:               /about/    
+  - title:             计算机图形学
     url:               /docs/
+  - title:             windows开发
+    url:               /about/
   - title:             About
     url:               /about/
 
@@ -75,13 +88,6 @@ permalink:             /:categories/:year-:month-:day-:title/
 # Pagination configuration (used by the `blog` layout)
 paginate:              10
 paginate_path:         /:num/
-
-
-# Theme
-# ---------------------------------------------------------------------------------------
-# 修改为远程的主题
-# theme: jekyll-theme-hydejack
-remote_theme: hydecorp/hydejack@v9
 
 
 # Customizaton
