@@ -15,7 +15,7 @@
 # Theme
 # ---------------------------------------------------------------------------------------
 # 修改为远程的主题
-theme: jekyll-theme-hydejack
+# theme: jekyll-theme-hydejack
 remote_theme: hydecorp/hydejack@v9
 
 # General settings
