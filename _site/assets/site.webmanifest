@@ -4,7 +4,7 @@
   "short_name": "Gelei Blog",
   "description": "格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等",
   "start_url": "/?utm_source=homescreen",
-  "theme_color": "rgb(25,55,71)",
+  "theme_color": "rgb(0,0,0)",
   "background_color": "#fff",
   "orientation": "portrait",
   "display": "minimal-ui",

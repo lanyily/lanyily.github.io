@@ -15,8 +15,8 @@
 # Theme
 # ---------------------------------------------------------------------------------------
 # 修改为远程的主题
-# theme: jekyll-theme-hydejack
-remote_theme: hydecorp/hydejack@v9
+theme: jekyll-theme-hydejack # 本地需要，推送远程时不能打开
+remote_theme: hydecorp/hydejack@v9 # 本地可以打开，远程需要
 
 # General settings
 # ---------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ legal:
   #   url:               /CHANGELOG/
 
 # This text will appear in a `<small>` tag in the footer of every page.
-copyright:             © 2023. All rights reserved.
+copyright:             © 2023 github-lanyily. All rights reserved.
 
 # Format of the permalinks
 permalink:             /:categories/:year-:month-:day-:title/
@@ -95,12 +95,16 @@ paginate_path:         /:num/
  
 # Sidebar image and theme color of the site.
 accent_image:          /assets/img/sidebar-bg.jpg
-accent_color:          rgb(79,177,186)
+# accent_color:          rgb(79,177,186)
+# 下划线等的颜色
+accent_color:          rgb(117,98,223)
 
 # This is used for the `theme-color` meta tag,
 # which changes the background color of the browser UI in certain browsers.
 # Defaults to `accent_color`.
-theme_color:           rgb(25,55,71)
+# 页面没加载出来的背景色
+# theme_color:           rgb(25,55,71)
+theme_color:           rgb(0,0,0)
 
 # The string encoding which fonts to fetch from Google Fonts.
 # See: <https://hydejack.com/docs/configuration/>
@@ -181,6 +185,7 @@ kramdown:
 # Setting a disqus shortname will enable the comment section on
 # pages with `comments: true` in the front matter.
 # disqus:                <username>
+disqus:                gelei
 
 # Setting a tinyletter username will enable the newsletter subscription box.
 # PRO version only!
