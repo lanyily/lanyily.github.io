@@ -39,15 +39,15 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
 <meta property="og:locale" content="zh" />
 <meta name="description" content="由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现" />
 <meta property="og:description" content="由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现" />
-<link rel="canonical" href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/666/" />
-<meta property="og:url" content="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/666/" />
+<link rel="canonical" href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/" />
+<meta property="og:url" content="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/" />
 <meta property="og:site_name" content="Gelei Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-09-01T00:00:00+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="模版方法模式" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-12T22:43:59+08:00","datePublished":"2023-09-01T00:00:00+08:00","description":"由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现","headline":"模版方法模式","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/666/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/666/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-13T00:34:53+08:00","datePublished":"2023-09-01T00:00:00+08:00","description":"由固定步骤组成的事情，在步骤确定的情况下，通过多态在子类中对每步进行差异性实现","headline":"模版方法模式","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -77,7 +77,7 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
 <meta name="generator" content="Hydejack v9.1.6" />
 
 
-<link rel="alternate" href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/666/" hreflang="zh">
+<link rel="alternate" href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-01-design-pattern/" hreflang="zh">
 
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Gelei Blog" />
 
@@ -97,7 +97,7 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
 
 
 
-<link rel="dns-prefetch" href="https://gelei.disqus.com" id="_hrefDisqus">
+<link rel="dns-prefetch" href="https://https-lanyily-github-io.disqus.com" id="_hrefDisqus">
 
 
 <script>!function(r,c){"use strict";function a(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=c.createElement("script"),e=(n.src=e,t&&a(n,"load",t,{once:!0}),c.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=c.createElement("script");function o(){r._loaded=!0,t&&a(n,"load",t,{once:!0});var e=c.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():a(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){a(c.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}}(window,document);
@@ -114,7 +114,7 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2023-10-12T22:44:43+08:00',
+    INDEX_KEY: 'index--2023-10-13T00:34:53+08:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -200,7 +200,7 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
       <li>
         
           <span>/</span>
-          <span>666</span>
+          <span>2023-09-01-design-pattern</span>
         
       </li>
     
@@ -217,7 +217,7 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
 
 
 
-<article id="post-设计模式-design-pattern" class="page post mb6" role="article">
+<article id="post-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-design-pattern" class="page post mb6" role="article">
   <header>
     <h1 class="post-title flip-project-title">
       
@@ -300,6 +300,14 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
 
 
 
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" class="flip-title"><span>简单工厂模式</span></a>  <time class="faded fine" datetime="2023-09-22T00:00:00+08:00">22 Sep 2023</time></li>                        <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-15-design-pattern/" class="flip-title"><span>享元模式</span></a>  <time class="faded fine" datetime="2023-09-15T00:00:00+08:00">15 Sep 2023</time></li>            </ul></aside>
+
+  
 
   
      
@@ -406,14 +414,6 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
   
 
   
-  
-
-  
-    
-
-
-  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" class="flip-title"><span>简单工厂模式</span></a>  <time class="faded fine" datetime="2023-09-22T00:00:00+08:00">22 Sep 2023</time></li>                        <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-15-design-pattern/" class="flip-title"><span>享元模式</span></a>  <time class="faded fine" datetime="2023-09-15T00:00:00+08:00">15 Sep 2023</time></li>            </ul></aside>
-
   
 
   

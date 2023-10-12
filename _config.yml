@@ -146,6 +146,7 @@ defaults:
       sitemap:         false
 
   # You can use the following to enable comments on all posts.
+  # 评论：https://https-lanyily-github-io.disqus.com/admin/settings/jekyll/
   - scope:
       type:            posts
     values:
@@ -185,6 +186,7 @@ kramdown:
 # Setting a disqus shortname will enable the comment section on
 # pages with `comments: true` in the front matter.
 # disqus:                <username>
+# disqus评论区
 disqus:                https-lanyily-github-io
 
 # Setting a tinyletter username will enable the newsletter subscription box.
@@ -198,7 +200,7 @@ disqus:                https-lanyily-github-io
 
 hydejack:
   # Configure the order of complementary content on blog posts
-  post_addons:         [about, newsletter, related, random, comments]
+  post_addons:         [related,about, newsletter, random,comments]
 
   # Configure the order of complementary content on project pages
   project_addons:      [about, newsletter, other, comments]
