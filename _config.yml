@@ -15,7 +15,7 @@
 # Theme
 # ---------------------------------------------------------------------------------------
 # 修改为远程的主题
-theme: jekyll-theme-hydejack # 本地需要，推送远程时不能打开
+# theme: jekyll-theme-hydejack # 本地需要，推送远程时不能打开
 remote_theme: hydecorp/hydejack@v9 # 本地可以打开，远程需要
 
 # General settings
