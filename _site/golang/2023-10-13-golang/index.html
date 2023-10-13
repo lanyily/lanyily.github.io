@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.1.6 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>golang圣经第二章：程序结构 | Gelei Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="golang圣经第二章：程序结构" />
+<meta name="author" content="Ge Lei" />
+<meta property="og:locale" content="zh" />
+<meta name="description" content="描述Go语言程序的基本元素结构、变量、新类型定义、包和文件、以及作用域等概念" />
+<meta property="og:description" content="描述Go语言程序的基本元素结构、变量、新类型定义、包和文件、以及作用域等概念" />
+<link rel="canonical" href="http://localhost:4000/golang/2023-10-13-golang/" />
+<meta property="og:url" content="http://localhost:4000/golang/2023-10-13-golang/" />
+<meta property="og:site_name" content="Gelei Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-13T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="golang圣经第二章：程序结构" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-13T22:32:20+08:00","datePublished":"2023-10-13T00:00:00+08:00","description":"描述Go语言程序的基本元素结构、变量、新类型定义、包和文件、以及作用域等概念","headline":"golang圣经第二章：程序结构","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/golang/2023-10-13-golang/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/golang/2023-10-13-golang/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C++基础,计算机图形学,三维动作捕捉,游戏引擎开发,音视频处理">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gelei Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Gelei Blog">
+
+<meta name="generator" content="Hydejack v9.1.6" />
+
+
+<link rel="alternate" href="http://localhost:4000/golang/2023-10-13-golang/" hreflang="zh">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Gelei Blog" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com"><link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+<link rel="dns-prefetch" href="https://https-lanyily-github-io.disqus.com" id="_hrefDisqus">
+
+
+<script>!function(r,c){"use strict";function a(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=c.createElement("script"),e=(n.src=e,t&&a(n,"load",t,{once:!0}),c.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=c.createElement("script");function o(){r._loaded=!0,t&&a(n,"load",t,{once:!0});var e=c.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():a(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){a(c.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2023-10-13T22:32:21+08:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.1.6.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700%7CNoto+Sans:400,400i,700,700i&display=swap" id="_fontsPreload">
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.5);--accent-color-highlight: rgba(117, 98, 223, 0.1);--accent-color-darkened: #5942d9;--theme-color: rgb(0,0,0)}
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="no-break-layout">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/golang/">golang</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-10-13-golang</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-golang-golang" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        golang圣经第二章：程序结构
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-10-13T00:00:00+08:00">13 Oct 2023</time> in <a href="/golang/" class="flip-title">Go语言</a> 
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      描述Go语言程序的基本元素结构、变量、新类型定义、包和文件、以及作用域等概念
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>本章介绍Go语言程序的命名，声明，基本元素结构、变量、新类型定义、包和文件、以及作用域</p>
+
+<h1 id="21-命名">2.1 命名</h1>
+
+<p>变量名称有大小写区分</p>
+
+<h3 id="关键字">关键字</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>break      default       func     interface   select
+case       defer         go       map         struct
+chan       else          goto     package     switch
+const      fallthrough   if       range       type
+continue   for           import   return      var
+</code></pre></div></div>
+
+<h3 id="预定义的名字">预定义的名字</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内建常量: true false iota nil
+
+内建类型: int int8 int16 int32 int64
+          uint uint8 uint16 uint32 uint64 uintptr
+          float32 float64 complex128 complex64
+          bool byte rune string error
+
+内建函数: make len cap new append copy close delete
+          complex real imag
+          panic recover
+</code></pre></div></div>
+
+<h3 id="定义域">定义域</h3>
+
+<p>如果一个名字是在函数内部定义，那么它就只在函数内部有效。</p>
+
+<p>如果是在函数外部定义，那么将在当前包的所有文件中都可以访问。</p>
+
+<p><strong>名字的开头字母的大小写决定了名字在包外的可见性</strong></p>
+
+<p>如果一个名字是大写字母开头的（必须是在函数外部定义的包级名字；包级函数名本身也是包级名字），那么它将是导出的，也就是说可以被外部的包访问，例如fmt包的Printf函数就是导出的，可以在fmt包外部访问。</p>
+
+<p>包本身的名字一般总是用小写字母。</p>
+
+<h3 id="命名">命名</h3>
+
+<p>命名一般采用大小写分隔而不是下划线分隔</p>
+
+<p>QuoteRuneToASCII和parseRequestLine</p>
+
+<p>缩略词一般大小写一致，如htmlEscape、HTMLEscape或escapeHTML，但不会是escapeHtml。</p>
+
+<h1 id="22-声明">2.2 声明</h1>
+
+<p>Go语言主要有四种类型的声明语句：var、const、type和func，分别对应变量、常量、类型和函数实体对象的声明</p>
+
+<h3 id="函数声明">函数声明</h3>
+
+<p>一个函数的声明由一个函数名字、参数列表（由函数的调用者提供参数变量的具体值）、一个可选的返回值列表和包含函数定义的函数体组成。</p>
+
+<p>如果函数没有返回值，那么返回值列表是省略的。</p>
+
+<h1 id="23-变量">2.3 变量</h1>
+
+<h2 id="基本声明">基本声明</h2>
+
+<h3 id="变量声明">变量声明</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">变量名字</span> <span class="n">类型</span> <span class="o">=</span> <span class="n">表达式</span>
+</code></pre></div></div>
+
+<p>其中“<em>类型</em>”或“<em>= 表达式</em>”两个部分可以省略其中的一个。如果省略的是类型信息，那么将根据初始化表达式来推导变量的类型信息。如果初始化表达式被省略，那么将用零值初始化该变量。 数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值是空字符串，接口或引用类型（包括slice、指针、map、chan和函数）变量对应的零值是nil。数组或结构体等聚合类型对应的零值是每个元素或字段都是对应该类型的零值。</p>
+
+<h3 id="声明多个">声明多个</h3>
+
+<p>函数返回值也可以初始化</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="kt">int</span>                 <span class="c">// int, int, int</span>
+<span class="k">var</span> <span class="n">b</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="no">true</span><span class="p">,</span> <span class="m">2.3</span><span class="p">,</span> <span class="s">"four"</span> <span class="c">// bool, float64, string</span>
+<span class="k">var</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="c">// os.Open returns a file and an error</span>
+</code></pre></div></div>
+
+<p>不要混淆多个变量的声明和元组的多重赋值（§2.4.1），后者是将右边各个表达式的值赋值给左边对应位置的各个变量：</p>
+
+<pre><code class="language-Go">i, j = j, i // 交换 i 和 j 的值
+</code></pre>
+
+<h2 id="231-简短变量声明">2.3.1 简短变量声明</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i</span> <span class="o">:=</span> <span class="m">100</span>                  <span class="c">// an int</span>
+<span class="k">var</span> <span class="n">boiling</span> <span class="kt">float64</span> <span class="o">=</span> <span class="m">100</span> <span class="c">// a float64</span>
+<span class="k">var</span> <span class="n">names</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+<span class="k">var</span> <span class="n">p</span> <span class="n">Point</span>
+</code></pre></div></div>
+
+<p>简短变量声明语句也可以用来声明和初始化一组变量：</p>
+
+<pre><code class="language-Go">i, j := 0, 1
+</code></pre>
+
+<p><strong>“:=”是一个变量声明语句，而“=”是一个变量赋值操作</strong></p>
+
+<p>简短变量声明左边的变量可能并不是全部都是刚刚声明的。如果有一些已经在相同的词法域声明过了，那么简短变量声明语句对这些已经声明过的变量就只有赋值行为了。</p>
+
+<p>在下面的代码中，第一个语句声明了in和err两个变量。在第二个语句只声明了out一个变量，然后对已经声明的err进行了赋值操作。</p>
+
+<pre><code class="language-Go">in, err := os.Open(infile)
+// ...
+out, err := os.Create(outfile)
+</code></pre>
+
+<p>简短变量声明语句中必须至少要声明一个新的变量，下面的代码将不能编译通过：</p>
+
+<pre><code class="language-Go">f, err := os.Open(infile)
+// ...
+f, err := os.Create(outfile) // compile error: no new variables
+</code></pre>
+
+<p>简短变量声明语句只有对已经在同级词法域声明过的变量才和赋值操作语句等价，如果变量是在外部词法域声明的，那么简短变量声明语句将会在当前词法域重新声明一个新的变量。</p>
+
+<p>在Go语言中，<code class="language-plaintext highlighter-rouge">:=</code> 和 <code class="language-plaintext highlighter-rouge">=</code> 是两种不同的变量声明和赋值操作符，它们的用法和含义有一些不同。</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">result := add(3, 5)</code></li>
+</ol>
+
+<p>这是一个使用短变量声明操作符 <code class="language-plaintext highlighter-rouge">:=</code> 的语句。它的主要特点是：</p>
+
+<ul>
+  <li>它用于声明并初始化一个新的变量 <code class="language-plaintext highlighter-rouge">result</code>。</li>
+  <li>变量的类型是由右侧的表达式的返回值类型来推断的，因此 <code class="language-plaintext highlighter-rouge">result</code> 的类型将由 <code class="language-plaintext highlighter-rouge">add(3, 5)</code> 的返回值类型决定。</li>
+  <li>这个操作符通常在函数内部使用，用于创建一个新的变量并为其赋初值。</li>
+</ul>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">var result = add(3, 5)</code></li>
+</ol>
+
+<p>这是使用 <code class="language-plaintext highlighter-rouge">var</code> 关键字进行变量声明和初始化的语句。它的特点是：</p>
+
+<ul>
+  <li>它显式指定了变量的类型，类型由 <code class="language-plaintext highlighter-rouge">var result</code> 的部分决定，因此需要明确指定变量的类型。</li>
+  <li>右侧的表达式 <code class="language-plaintext highlighter-rouge">add(3, 5)</code> 用于初始化变量 <code class="language-plaintext highlighter-rouge">result</code> 的值。</li>
+</ul>
+
+<p>因此，主要的区别在于类型的推断和声明方式：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">result := add(3, 5)</code> 会自动推断 <code class="language-plaintext highlighter-rouge">result</code> 的类型，不需要显式指定。</li>
+  <li><code class="language-plaintext highlighter-rouge">var result = add(3, 5)</code> 显式指定了变量的类型，适用于需要明确指定类型的情况。</li>
+</ul>
+
+<p>在实际使用中，通常会根据情况选择适当的方式。如果你希望变量的类型由赋值表达式自动推断，可以使用 <code class="language-plaintext highlighter-rouge">:=</code>，而如果你需要明确指定类型，可以使用 <code class="language-plaintext highlighter-rouge">var</code>。</p>
+
+<h2 id="232-指针">2.3.2 指针</h2>
+
+<p>函数可以传指针，不能传引用</p>
+
+<p>任何类型的指针的零值都是nil。</p>
+
+<p>变量有时候被称为可寻址的值。即使变量由表达式临时生成，那么表达式也必须能接受<code class="language-plaintext highlighter-rouge">&amp;</code>取地址操作。</p>
+
+<p>指针之间也是可以进行相等测试的，只有当它们指向同一个变量或全部是nil时才相等。</p>
+
+<p>在Go语言中，返回函数中局部变量的地址也是安全的，如下，因为指针p依然引用这个变量。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+
+<span class="k">func</span> <span class="n">f</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="n">v</span> <span class="o">:=</span> <span class="m">1</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">v</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"flag"</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"strings"</span>
+<span class="p">)</span>
+
+<span class="k">var</span> <span class="n">n</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="s">"n"</span><span class="p">,</span> <span class="no">false</span><span class="p">,</span> <span class="s">"omit newline"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">sep</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"s"</span><span class="p">,</span> <span class="s">" "</span><span class="p">,</span> <span class="s">"separator"</span><span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">flag</span><span class="o">.</span><span class="n">Parse</span><span class="p">()</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="n">strings</span><span class="o">.</span><span class="n">Join</span><span class="p">(</span><span class="n">flag</span><span class="o">.</span><span class="n">Args</span><span class="p">(),</span> <span class="o">*</span><span class="n">sep</span><span class="p">))</span>
+	<span class="k">if</span> <span class="o">!*</span><span class="n">n</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="233-new函数">2.3.3 new函数</h2>
+
+<p>语法糖，不是新的基础概念</p>
+
+<p>调用内建的new函数。表达式new(T)将创建一个T类型的匿名变量，初始化为T类型的零值，然后返回变量地址，返回的指针类型为<code class="language-plaintext highlighter-rouge">*T</code>。</p>
+
+<p>每次调用new函数都是返回一个<strong>新的变量</strong>的地址</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>   <span class="c">// p, *int 类型, 指向匿名的 int 变量</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="c">// "0"</span>
+<span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="m">2</span>          <span class="c">// 设置 int 匿名变量的值为 2</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="c">// "2"</span>
+</code></pre></div></div>
+
+<p>用new创建变量和普通变量声明语句方式创建变量没有什么区别，除了不需要声明一个临时变量的名字外，我们还可以在表达式中使用new(T)</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">newInt</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">newInt</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">dummy</span> <span class="kt">int</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">dummy</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="重定义">重定义</h3>
+
+<p>由于new只是一个预定义的函数，它并不是一个关键字，因此我们可以将new名字重新定义为别的类型。例如下面的例子：</p>
+
+<pre><code class="language-Go">func delta(old, new int) int { return new - old }
+</code></pre>
+
+<p>由于new被定义为int类型的变量名，因此在delta函数内部是无法使用内置的new函数的。</p>
+
+<h2 id="234-变量的生命周期">2.3.4 变量的生命周期</h2>
+
+<p>对于在包一级声明的变量来说，它们的生命周期和整个程序的运行周期是一致的。</p>
+
+<p>局部变量的生命周期则是动态的：每次从创建一个新变量的声明语句开始，直到该变量不再被引用为止，然后变量的存储空间可能被回收。</p>
+
+<p><strong>函数的参数变量</strong>和<strong>返回值变量</strong>都是<strong>局部变量</strong>。它们在函数每次被调用的时候创建。</p>
+
+<p>末尾的参数变量后面显式插入逗号时，最后插入的逗号不会导致编译错误，这是Go编译器的一个特性</p>
+
+<h3 id="垃圾回收机制">垃圾回收机制</h3>
+
+<p>基本的实现思路是，从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不存在这样的访问路径，那么说明该变量是不可达的，也就是说它是否存在并不会影响程序后续的计算结果。</p>
+
+<p>因为一个变量的有效周期只取决于是否可达，因此一个循环迭代内部的局部变量的生命周期可能超出其局部作用域。同时，局部变量可能在函数返回之后依然存在。</p>
+
+<h2 id="235-栈和堆的分配">2.3.5 栈和堆的分配</h2>
+
+<p>编译器会自动选择在栈上还是在堆上分配局部变量的存储空间，但可能令人惊讶的是，这个选择并不是由用var还是new声明变量的方式决定的。</p>
+
+<pre><code class="language-Go">var global *int
+
+func f() {
+    var x int
+    x = 1
+    global = &amp;x
+}
+
+func g() {
+    y := new(int)
+    *y = 1
+}
+</code></pre>
+
+<p>f函数里的x变量必须在堆上分配，因为它在函数退出后依然可以通过包一级的global变量找到，虽然它是在函数内部定义的；用Go语言的术语说，这个x局部变量从函数f中<strong>逃逸</strong>了。</p>
+
+<p>相反，当g函数返回时，变量<code class="language-plaintext highlighter-rouge">*y</code>将是不可达的，也就是说可以马上被回收的。因此，<code class="language-plaintext highlighter-rouge">*y</code>并没有从函数g中逃逸，编译器可以选择在栈上分配<code class="language-plaintext highlighter-rouge">*y</code>的存储空间（译注：也可以选择在堆上分配，然后由Go语言的GC回收这个变量的内存空间），虽然这里用的是new方式。</p>
+
+<p>其实在任何时候，你并不需为了编写正确的代码而要考虑变量的逃逸行为，要记住的是，逃逸的变量需要<strong>额外分配内存</strong>，同时对性能的优化可能会产生细微的影响。</p>
+
+<h1 id="24-赋值">2.4 赋值</h1>
+
+<h2 id="241-递增递减">2.4.1 递增，递减</h2>
+
+<p>数值变量也可以支持<code class="language-plaintext highlighter-rouge">++</code>递增和<code class="language-plaintext highlighter-rouge">--</code>递减语句，但是自增和自减是语句，而不是表达式，因此<code class="language-plaintext highlighter-rouge">x = i++</code>之类的表达式是错误的</p>
+
+<h2 id="242-元组赋值">2.4.2 元组赋值</h2>
+
+<p>元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// 计算两个整数值的的最大公约数</span>
+<span class="k">func</span> <span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="o">!=</span> <span class="m">0</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">%</span><span class="n">y</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="p">}</span>
+<span class="c">// 计算斐波纳契数列（Fibonacci）的第N个数</span>
+<span class="k">func</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">:=</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>有些表达式会产生多个值，比如调用一个有多个返回值的函数。当这样一个函数调用出现在元组赋值右边的表达式中时（译注：右边不能再有其它表达式），左边变量的数目必须和右边一致。</p>
+
+<pre><code class="language-Go">f, err = os.Open("foo.txt") // function call returns two values
+</code></pre>
+
+<p>如果map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边，它们都可能会产生两个结果，有一个额外的布尔结果表示操作是否成功：</p>
+
+<pre><code class="language-Go">v, ok = m[key]             // map lookup
+v, ok = x.(T)              // type assertion
+v, ok = &lt;-ch               // channel receive
+</code></pre>
+
+<p>也可能只产生一个结果。对于只产生一个结果的情形，map查找失败时会返回零值，类型断言失败时会发生运行时panic异常，通道接收失败时会返回零值（阻塞不算是失败）</p>
+
+<pre><code class="language-Go">v = m[key]                // map查找，失败时返回零值
+v = x.(T)                 // type断言，失败时panic异常
+v = &lt;-ch                  // 管道接收，失败时返回零值（阻塞不算是失败）
+
+_, ok = m[key]            // map返回2个值
+_, ok = mm[""], false     // map返回1个值
+_ = mm[""]                // map返回1个值
+</code></pre>
+
+<p>和变量声明一样，我们可以用下划线空白标识符<code class="language-plaintext highlighter-rouge">_</code>来丢弃不需要的值。</p>
+
+<pre><code class="language-Go">_, err = io.Copy(dst, src) // 丢弃字节数
+_, ok = x.(T)              // 只检测类型，忽略具体值
+</code></pre>
+
+<h2 id="243-可赋值性">2.4.3 可赋值性</h2>
+
+<p>不管是隐式还是显式地赋值，在赋值语句左边的变量和右边最终的求到的值必须有相同的数据类型。更直白地说，只有右边的值对于左边的变量是可赋值的，赋值语句才是允许的。</p>
+
+<p><strong>目前规则</strong>：类型必须完全匹配，nil可以赋值给任何指针或引用类型的变量，常量则有更灵活的赋值规则，因为这样可以避免不必要的显式的类型转换。</p>
+
+<p>对于两个值是否可以用<code class="language-plaintext highlighter-rouge">==</code>或<code class="language-plaintext highlighter-rouge">!=</code>进行相等比较的能力也和可赋值能力有关系：对于任何类型的值的相等比较，第二个值必须是对第一个值类型对应的变量是可赋值的，反之亦然。</p>
+
+<h1 id="25-类型">2.5 类型</h1>
+
+<pre><code class="language-Go">type 类型名字 底层类型
+</code></pre>
+
+<p>类型声明语句一般出现在包一级，因此如果新创建的类型名字的首字符大写，则在包外部也可以使用。</p>
+
+<h2 id="251-类型转换">2.5.1 类型转换</h2>
+
+<p>在任何情况下，运行时不会发生转换失败的错误，错误只会发生在编译阶段</p>
+
+<p>比较运算符<code class="language-plaintext highlighter-rouge">==</code>和<code class="language-plaintext highlighter-rouge">&lt;</code>也可以用来比较一个命名类型的变量和另一个有相同类型的变量，或有着相同底层类型的未命名类型的值之间做比较。但是如果两个值有着不同的类型，则不能直接进行比较：</p>
+
+<pre><code class="language-Go">var c Celsius
+var f Fahrenheit
+fmt.Println(c == 0)          // "true"
+fmt.Println(f &gt;= 0)          // "true"
+fmt.Println(c == f)          // compile error: type mismatch
+fmt.Println(c == Celsius(f)) // "true"!
+</code></pre>
+
+<h1 id="26-包和文件">2.6 包和文件</h1>
+
+<p>每个包都对应一个独立的名字空间。例如，在image包中的Decode函数和在unicode/utf16包中的 Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或utf16.Decode形式访问。</p>
+
+<p>包还可以让我们通过控制哪些名字是外部可见的来隐藏内部实现信息。在Go语言中，一个简单的规则是：如果一个名字是大写字母开头的，那么该名字是导出的（因为汉字不区分大小写，因此汉字开头的名字是没有导出的）。</p>
+
+<h2 id="261-包注释">2.6.1 包注释</h2>
+
+<p>在每个源文件的包声明前紧跟着的注释是包注释（§10.7.4）。通常，包注释的第一句应该先是包的功能概要说明。一个包通常只有一个源文件有包注释（如果有多个包注释，目前的文档工具会根据源文件名的先后顺序将它们链接为一个包注释）。如果包注释很大，通常会放到一个独立的doc.go文件中。</p>
+
+<h2 id="262-导入包">2.6.2 导入包</h2>
+
+<p>除了包的导入路径，每个包还有一个包名，包名一般是短小的名字（并不要求包名是唯一的），包名在包的声明处指定。按照惯例，一个包的名字和包的导入路径的最后一个字段相同</p>
+
+<p><strong>如果导入了一个包，但是又没有使用该包将被当作一个编译错误处理。</strong></p>
+
+<p>这种强制规则可以有效减少不必要的依赖，虽然在调试期间可能会让人讨厌，因为删除一个类似log.Print(“got here!”)的打印语句可能导致需要同时删除log包导入声明，否则，编译器将会发出一个错误。在这种情况下，我们需要将不必要的导入删除或注释掉</p>
+
+<h2 id="263-包的初始化">2.6.3 包的初始化</h2>
+
+<p>包的初始化是通过 <code class="language-plaintext highlighter-rouge">init()</code> 函数来实现的。每个包可以包含一个或多个 <code class="language-plaintext highlighter-rouge">init()</code> 函数，这些函数会在程序启动时自动执行，无需显式调用。</p>
+
+<p>初始化函数的格式如下：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c">// 初始化代码</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>包中的 <code class="language-plaintext highlighter-rouge">init()</code> 函数会在包被导入时执行，每个包的 <code class="language-plaintext highlighter-rouge">init()</code> 函数按照导入的顺序执行，但每个 <code class="language-plaintext highlighter-rouge">init()</code> 函数仅执行一次。这使得包可以进行一些初始化工作，如设置全局变量、连接数据库、或执行其他必要的操作。</p>
+
+<p>初始化函数对于包的用户是透明的，它们不需要显式调用，而是在包被导入时自动执行。</p>
+
+<h1 id="27-作用域">2.7 作用域</h1>
+
+<p>一个声明语句将程序中的实体和一个名字关联，比如一个函数或一个变量。</p>
+
+<p>声明语句的<strong>作用域</strong>是指<strong>源代码中可以有效使用这个名字的范围</strong>。</p>
+
+<p>不要将作用域和生命周期混为一谈。声明语句的作用域对应的是一个源代码的文本区域；它是一个<strong>编译时</strong>的属性。一个变量的生命周期是指程序运行时变量存在的有效时间段，在此时间区域内它可以被程序的其他部分引用；是一个<strong>运行时</strong>的概念。</p>
+
+<h2 id="271-作用域导致的隐晦的错误">2.7.1 作用域导致的隐晦的错误</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">cwd</span> <span class="kt">string</span>
+
+<span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">cwd</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getwd</span><span class="p">()</span> <span class="c">// NOTE: wrong!</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"os.Getwd failed: %v"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Working directory = %s"</span><span class="p">,</span> <span class="n">cwd</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>上述代码中，虽然cwd在外部已经声明过，但是<code class="language-plaintext highlighter-rouge">:=</code>语句还是将cwd和err重新声明为新的局部变量。因为内部声明的cwd将屏蔽外部的声明，因此上面的代码并不会正确更新包级声明的cwd变量。</p>
+
+<p>最直接的解决方法是通过单独声明err变量，来避免使用<code class="language-plaintext highlighter-rouge">:=</code>的简短声明方式：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">cwd</span> <span class="kt">string</span>
+
+<span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+    <span class="n">cwd</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getwd</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"os.Getwd failed: %v"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/golang/2023-10-12-golang/" class="flip-title"><span>golang圣经第一章：入门</span></a>  <time class="faded fine" datetime="2023-10-12T00:00:00+08:00">12 Oct 2023</time></li>                        <li class="h4">  <a href="/golang/2023-10-11-golang/" class="flip-title"><span>golang环境配置</span></a>  <time class="faded fine" datetime="2023-10-11T00:00:00+08:00">11 Oct 2023</time></li>                        <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" class="flip-title"><span>简单工厂模式</span></a>  <time class="faded fine" datetime="2023-09-22T00:00:00+08:00">22 Sep 2023</time></li>            </ul></aside>
+
+  
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/author.jpg"
+    
+    
+  
+  alt="Ge Lei"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>你好，我是Gelei，希望你能从本站中有所收获~</p>
+
+<p>看的开心的话，可以<a href="/about/">请格蕾喝杯咖啡~</a></p>
+
+<p>感谢喵，谢谢打赏喵~</p>
+
+<p>Hello, I am Gelei. I hope you can learn something from this website~</p>
+
+<p>If you’re happy to watch, you can <a href="/about/">buy Grey a cup of coffee~</a></p>
+
+<p>Thank you Meow, thank you for sponsoring Meow~</p>
+
+<p>こんにちは、私はGeleiです、あなたがこのサイトからいくつかの収穫があることを願っています~</p>
+
+<p>見るのが楽しいなら、<a href="/about/">Geleiにコーヒーをおごってもいいですよ~</a></p>
+
+<p>ありがとうにゃん、協賛ありがとうにゃ~</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  
+
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<script>!function(w, d) {
+  if (d.getElementById("disqus_thread")) {
+    if (w.DISQUS) {
+      w.DISQUS.reset({
+        reload: true,
+        config() {
+          this.page.url = w.location.href;
+          this.page.title = d.title;
+        },
+      });
+    } else {
+      w.disqus_config = function disqusConfig() {
+        this.page.url = w.location.href;
+        this.page.title = d.title;
+      };
+      w.loadJSDeferred(d.getElementById("_hrefDisqus").href + '/embed.js');
+    }
+  }
+}(window, document);</script>
+
+
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2023 github-lanyily. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/about/">About</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.1.6</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Gelei Blog" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Gelei Blog</h2></a>
+    
+    
+      <p class="">
+        百万雄狮都听我号令！
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/golang/"
+          class="sidebar-nav-item "
+          
+        >
+          golang
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+          class="sidebar-nav-item "
+          
+        >
+          23种设计模式
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())}();
+</script>
+  <script src="/assets/js/hydejack-9.1.6.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.1.6.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>

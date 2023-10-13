@@ -1,5 +1,650 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2023-10-13T00:34:53+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Gelei Blog</title><subtitle>格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等
-</subtitle><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><entry><title type="html">简单工厂模式</title><link href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" rel="alternate" type="text/html" title="简单工厂模式" /><published>2023-09-22T00:00:00+08:00</published><updated>2023-10-10T00:24:25+08:00</updated><id>http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/design-pattern</id><content type="html" xml:base="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/"><![CDATA[<p>定义一个工厂类，其成员函数可以根据不同的参数创建并返回不同的类对象，调用者无需关注创建细节</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2023-10-13T22:32:21+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Gelei Blog</title><subtitle>格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等
+</subtitle><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><entry><title type="html">golang圣经第二章：程序结构</title><link href="http://localhost:4000/golang/2023-10-13-golang/" rel="alternate" type="text/html" title="golang圣经第二章：程序结构" /><published>2023-10-13T00:00:00+08:00</published><updated>2023-10-13T22:32:20+08:00</updated><id>http://localhost:4000/golang/golang</id><content type="html" xml:base="http://localhost:4000/golang/2023-10-13-golang/"><![CDATA[<p>本章介绍Go语言程序的命名，声明，基本元素结构、变量、新类型定义、包和文件、以及作用域</p>
+
+<h1 id="21-命名">2.1 命名</h1>
+
+<p>变量名称有大小写区分</p>
+
+<h3 id="关键字">关键字</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>break      default       func     interface   select
+case       defer         go       map         struct
+chan       else          goto     package     switch
+const      fallthrough   if       range       type
+continue   for           import   return      var
+</code></pre></div></div>
+
+<h3 id="预定义的名字">预定义的名字</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内建常量: true false iota nil
+
+内建类型: int int8 int16 int32 int64
+          uint uint8 uint16 uint32 uint64 uintptr
+          float32 float64 complex128 complex64
+          bool byte rune string error
+
+内建函数: make len cap new append copy close delete
+          complex real imag
+          panic recover
+</code></pre></div></div>
+
+<h3 id="定义域">定义域</h3>
+
+<p>如果一个名字是在函数内部定义，那么它就只在函数内部有效。</p>
+
+<p>如果是在函数外部定义，那么将在当前包的所有文件中都可以访问。</p>
+
+<p><strong>名字的开头字母的大小写决定了名字在包外的可见性</strong></p>
+
+<p>如果一个名字是大写字母开头的（必须是在函数外部定义的包级名字；包级函数名本身也是包级名字），那么它将是导出的，也就是说可以被外部的包访问，例如fmt包的Printf函数就是导出的，可以在fmt包外部访问。</p>
+
+<p>包本身的名字一般总是用小写字母。</p>
+
+<h3 id="命名">命名</h3>
+
+<p>命名一般采用大小写分隔而不是下划线分隔</p>
+
+<p>QuoteRuneToASCII和parseRequestLine</p>
+
+<p>缩略词一般大小写一致，如htmlEscape、HTMLEscape或escapeHTML，但不会是escapeHtml。</p>
+
+<h1 id="22-声明">2.2 声明</h1>
+
+<p>Go语言主要有四种类型的声明语句：var、const、type和func，分别对应变量、常量、类型和函数实体对象的声明</p>
+
+<h3 id="函数声明">函数声明</h3>
+
+<p>一个函数的声明由一个函数名字、参数列表（由函数的调用者提供参数变量的具体值）、一个可选的返回值列表和包含函数定义的函数体组成。</p>
+
+<p>如果函数没有返回值，那么返回值列表是省略的。</p>
+
+<h1 id="23-变量">2.3 变量</h1>
+
+<h2 id="基本声明">基本声明</h2>
+
+<h3 id="变量声明">变量声明</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">变量名字</span> <span class="n">类型</span> <span class="o">=</span> <span class="n">表达式</span>
+</code></pre></div></div>
+
+<p>其中“<em>类型</em>”或“<em>= 表达式</em>”两个部分可以省略其中的一个。如果省略的是类型信息，那么将根据初始化表达式来推导变量的类型信息。如果初始化表达式被省略，那么将用零值初始化该变量。 数值类型变量对应的零值是0，布尔类型变量对应的零值是false，字符串类型对应的零值是空字符串，接口或引用类型（包括slice、指针、map、chan和函数）变量对应的零值是nil。数组或结构体等聚合类型对应的零值是每个元素或字段都是对应该类型的零值。</p>
+
+<h3 id="声明多个">声明多个</h3>
+
+<p>函数返回值也可以初始化</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="kt">int</span>                 <span class="c">// int, int, int</span>
+<span class="k">var</span> <span class="n">b</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="no">true</span><span class="p">,</span> <span class="m">2.3</span><span class="p">,</span> <span class="s">"four"</span> <span class="c">// bool, float64, string</span>
+<span class="k">var</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="c">// os.Open returns a file and an error</span>
+</code></pre></div></div>
+
+<p>不要混淆多个变量的声明和元组的多重赋值（§2.4.1），后者是将右边各个表达式的值赋值给左边对应位置的各个变量：</p>
+
+<pre><code class="language-Go">i, j = j, i // 交换 i 和 j 的值
+</code></pre>
+
+<h2 id="231-简短变量声明">2.3.1 简短变量声明</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i</span> <span class="o">:=</span> <span class="m">100</span>                  <span class="c">// an int</span>
+<span class="k">var</span> <span class="n">boiling</span> <span class="kt">float64</span> <span class="o">=</span> <span class="m">100</span> <span class="c">// a float64</span>
+<span class="k">var</span> <span class="n">names</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+<span class="k">var</span> <span class="n">p</span> <span class="n">Point</span>
+</code></pre></div></div>
+
+<p>简短变量声明语句也可以用来声明和初始化一组变量：</p>
+
+<pre><code class="language-Go">i, j := 0, 1
+</code></pre>
+
+<p><strong>“:=”是一个变量声明语句，而“=”是一个变量赋值操作</strong></p>
+
+<p>简短变量声明左边的变量可能并不是全部都是刚刚声明的。如果有一些已经在相同的词法域声明过了，那么简短变量声明语句对这些已经声明过的变量就只有赋值行为了。</p>
+
+<p>在下面的代码中，第一个语句声明了in和err两个变量。在第二个语句只声明了out一个变量，然后对已经声明的err进行了赋值操作。</p>
+
+<pre><code class="language-Go">in, err := os.Open(infile)
+// ...
+out, err := os.Create(outfile)
+</code></pre>
+
+<p>简短变量声明语句中必须至少要声明一个新的变量，下面的代码将不能编译通过：</p>
+
+<pre><code class="language-Go">f, err := os.Open(infile)
+// ...
+f, err := os.Create(outfile) // compile error: no new variables
+</code></pre>
+
+<p>简短变量声明语句只有对已经在同级词法域声明过的变量才和赋值操作语句等价，如果变量是在外部词法域声明的，那么简短变量声明语句将会在当前词法域重新声明一个新的变量。</p>
+
+<p>在Go语言中，<code class="language-plaintext highlighter-rouge">:=</code> 和 <code class="language-plaintext highlighter-rouge">=</code> 是两种不同的变量声明和赋值操作符，它们的用法和含义有一些不同。</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">result := add(3, 5)</code></li>
+</ol>
+
+<p>这是一个使用短变量声明操作符 <code class="language-plaintext highlighter-rouge">:=</code> 的语句。它的主要特点是：</p>
+
+<ul>
+  <li>它用于声明并初始化一个新的变量 <code class="language-plaintext highlighter-rouge">result</code>。</li>
+  <li>变量的类型是由右侧的表达式的返回值类型来推断的，因此 <code class="language-plaintext highlighter-rouge">result</code> 的类型将由 <code class="language-plaintext highlighter-rouge">add(3, 5)</code> 的返回值类型决定。</li>
+  <li>这个操作符通常在函数内部使用，用于创建一个新的变量并为其赋初值。</li>
+</ul>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">var result = add(3, 5)</code></li>
+</ol>
+
+<p>这是使用 <code class="language-plaintext highlighter-rouge">var</code> 关键字进行变量声明和初始化的语句。它的特点是：</p>
+
+<ul>
+  <li>它显式指定了变量的类型，类型由 <code class="language-plaintext highlighter-rouge">var result</code> 的部分决定，因此需要明确指定变量的类型。</li>
+  <li>右侧的表达式 <code class="language-plaintext highlighter-rouge">add(3, 5)</code> 用于初始化变量 <code class="language-plaintext highlighter-rouge">result</code> 的值。</li>
+</ul>
+
+<p>因此，主要的区别在于类型的推断和声明方式：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">result := add(3, 5)</code> 会自动推断 <code class="language-plaintext highlighter-rouge">result</code> 的类型，不需要显式指定。</li>
+  <li><code class="language-plaintext highlighter-rouge">var result = add(3, 5)</code> 显式指定了变量的类型，适用于需要明确指定类型的情况。</li>
+</ul>
+
+<p>在实际使用中，通常会根据情况选择适当的方式。如果你希望变量的类型由赋值表达式自动推断，可以使用 <code class="language-plaintext highlighter-rouge">:=</code>，而如果你需要明确指定类型，可以使用 <code class="language-plaintext highlighter-rouge">var</code>。</p>
+
+<h2 id="232-指针">2.3.2 指针</h2>
+
+<p>函数可以传指针，不能传引用</p>
+
+<p>任何类型的指针的零值都是nil。</p>
+
+<p>变量有时候被称为可寻址的值。即使变量由表达式临时生成，那么表达式也必须能接受<code class="language-plaintext highlighter-rouge">&amp;</code>取地址操作。</p>
+
+<p>指针之间也是可以进行相等测试的，只有当它们指向同一个变量或全部是nil时才相等。</p>
+
+<p>在Go语言中，返回函数中局部变量的地址也是安全的，如下，因为指针p依然引用这个变量。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+
+<span class="k">func</span> <span class="n">f</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="n">v</span> <span class="o">:=</span> <span class="m">1</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">v</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"flag"</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"strings"</span>
+<span class="p">)</span>
+
+<span class="k">var</span> <span class="n">n</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="s">"n"</span><span class="p">,</span> <span class="no">false</span><span class="p">,</span> <span class="s">"omit newline"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">sep</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"s"</span><span class="p">,</span> <span class="s">" "</span><span class="p">,</span> <span class="s">"separator"</span><span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">flag</span><span class="o">.</span><span class="n">Parse</span><span class="p">()</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="n">strings</span><span class="o">.</span><span class="n">Join</span><span class="p">(</span><span class="n">flag</span><span class="o">.</span><span class="n">Args</span><span class="p">(),</span> <span class="o">*</span><span class="n">sep</span><span class="p">))</span>
+	<span class="k">if</span> <span class="o">!*</span><span class="n">n</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="233-new函数">2.3.3 new函数</h2>
+
+<p>语法糖，不是新的基础概念</p>
+
+<p>调用内建的new函数。表达式new(T)将创建一个T类型的匿名变量，初始化为T类型的零值，然后返回变量地址，返回的指针类型为<code class="language-plaintext highlighter-rouge">*T</code>。</p>
+
+<p>每次调用new函数都是返回一个<strong>新的变量</strong>的地址</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>   <span class="c">// p, *int 类型, 指向匿名的 int 变量</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="c">// "0"</span>
+<span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="m">2</span>          <span class="c">// 设置 int 匿名变量的值为 2</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="c">// "2"</span>
+</code></pre></div></div>
+
+<p>用new创建变量和普通变量声明语句方式创建变量没有什么区别，除了不需要声明一个临时变量的名字外，我们还可以在表达式中使用new(T)</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">newInt</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">newInt</span><span class="p">()</span> <span class="o">*</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">dummy</span> <span class="kt">int</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">dummy</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="重定义">重定义</h3>
+
+<p>由于new只是一个预定义的函数，它并不是一个关键字，因此我们可以将new名字重新定义为别的类型。例如下面的例子：</p>
+
+<pre><code class="language-Go">func delta(old, new int) int { return new - old }
+</code></pre>
+
+<p>由于new被定义为int类型的变量名，因此在delta函数内部是无法使用内置的new函数的。</p>
+
+<h2 id="234-变量的生命周期">2.3.4 变量的生命周期</h2>
+
+<p>对于在包一级声明的变量来说，它们的生命周期和整个程序的运行周期是一致的。</p>
+
+<p>局部变量的生命周期则是动态的：每次从创建一个新变量的声明语句开始，直到该变量不再被引用为止，然后变量的存储空间可能被回收。</p>
+
+<p><strong>函数的参数变量</strong>和<strong>返回值变量</strong>都是<strong>局部变量</strong>。它们在函数每次被调用的时候创建。</p>
+
+<p>末尾的参数变量后面显式插入逗号时，最后插入的逗号不会导致编译错误，这是Go编译器的一个特性</p>
+
+<h3 id="垃圾回收机制">垃圾回收机制</h3>
+
+<p>基本的实现思路是，从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不存在这样的访问路径，那么说明该变量是不可达的，也就是说它是否存在并不会影响程序后续的计算结果。</p>
+
+<p>因为一个变量的有效周期只取决于是否可达，因此一个循环迭代内部的局部变量的生命周期可能超出其局部作用域。同时，局部变量可能在函数返回之后依然存在。</p>
+
+<h2 id="235-栈和堆的分配">2.3.5 栈和堆的分配</h2>
+
+<p>编译器会自动选择在栈上还是在堆上分配局部变量的存储空间，但可能令人惊讶的是，这个选择并不是由用var还是new声明变量的方式决定的。</p>
+
+<pre><code class="language-Go">var global *int
+
+func f() {
+    var x int
+    x = 1
+    global = &amp;x
+}
+
+func g() {
+    y := new(int)
+    *y = 1
+}
+</code></pre>
+
+<p>f函数里的x变量必须在堆上分配，因为它在函数退出后依然可以通过包一级的global变量找到，虽然它是在函数内部定义的；用Go语言的术语说，这个x局部变量从函数f中<strong>逃逸</strong>了。</p>
+
+<p>相反，当g函数返回时，变量<code class="language-plaintext highlighter-rouge">*y</code>将是不可达的，也就是说可以马上被回收的。因此，<code class="language-plaintext highlighter-rouge">*y</code>并没有从函数g中逃逸，编译器可以选择在栈上分配<code class="language-plaintext highlighter-rouge">*y</code>的存储空间（译注：也可以选择在堆上分配，然后由Go语言的GC回收这个变量的内存空间），虽然这里用的是new方式。</p>
+
+<p>其实在任何时候，你并不需为了编写正确的代码而要考虑变量的逃逸行为，要记住的是，逃逸的变量需要<strong>额外分配内存</strong>，同时对性能的优化可能会产生细微的影响。</p>
+
+<h1 id="24-赋值">2.4 赋值</h1>
+
+<h2 id="241-递增递减">2.4.1 递增，递减</h2>
+
+<p>数值变量也可以支持<code class="language-plaintext highlighter-rouge">++</code>递增和<code class="language-plaintext highlighter-rouge">--</code>递减语句，但是自增和自减是语句，而不是表达式，因此<code class="language-plaintext highlighter-rouge">x = i++</code>之类的表达式是错误的</p>
+
+<h2 id="242-元组赋值">2.4.2 元组赋值</h2>
+
+<p>元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// 计算两个整数值的的最大公约数</span>
+<span class="k">func</span> <span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="o">!=</span> <span class="m">0</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">%</span><span class="n">y</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="p">}</span>
+<span class="c">// 计算斐波纳契数列（Fibonacci）的第N个数</span>
+<span class="k">func</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">:=</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>有些表达式会产生多个值，比如调用一个有多个返回值的函数。当这样一个函数调用出现在元组赋值右边的表达式中时（译注：右边不能再有其它表达式），左边变量的数目必须和右边一致。</p>
+
+<pre><code class="language-Go">f, err = os.Open("foo.txt") // function call returns two values
+</code></pre>
+
+<p>如果map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边，它们都可能会产生两个结果，有一个额外的布尔结果表示操作是否成功：</p>
+
+<pre><code class="language-Go">v, ok = m[key]             // map lookup
+v, ok = x.(T)              // type assertion
+v, ok = &lt;-ch               // channel receive
+</code></pre>
+
+<p>也可能只产生一个结果。对于只产生一个结果的情形，map查找失败时会返回零值，类型断言失败时会发生运行时panic异常，通道接收失败时会返回零值（阻塞不算是失败）</p>
+
+<pre><code class="language-Go">v = m[key]                // map查找，失败时返回零值
+v = x.(T)                 // type断言，失败时panic异常
+v = &lt;-ch                  // 管道接收，失败时返回零值（阻塞不算是失败）
+
+_, ok = m[key]            // map返回2个值
+_, ok = mm[""], false     // map返回1个值
+_ = mm[""]                // map返回1个值
+</code></pre>
+
+<p>和变量声明一样，我们可以用下划线空白标识符<code class="language-plaintext highlighter-rouge">_</code>来丢弃不需要的值。</p>
+
+<pre><code class="language-Go">_, err = io.Copy(dst, src) // 丢弃字节数
+_, ok = x.(T)              // 只检测类型，忽略具体值
+</code></pre>
+
+<h2 id="243-可赋值性">2.4.3 可赋值性</h2>
+
+<p>不管是隐式还是显式地赋值，在赋值语句左边的变量和右边最终的求到的值必须有相同的数据类型。更直白地说，只有右边的值对于左边的变量是可赋值的，赋值语句才是允许的。</p>
+
+<p><strong>目前规则</strong>：类型必须完全匹配，nil可以赋值给任何指针或引用类型的变量，常量则有更灵活的赋值规则，因为这样可以避免不必要的显式的类型转换。</p>
+
+<p>对于两个值是否可以用<code class="language-plaintext highlighter-rouge">==</code>或<code class="language-plaintext highlighter-rouge">!=</code>进行相等比较的能力也和可赋值能力有关系：对于任何类型的值的相等比较，第二个值必须是对第一个值类型对应的变量是可赋值的，反之亦然。</p>
+
+<h1 id="25-类型">2.5 类型</h1>
+
+<pre><code class="language-Go">type 类型名字 底层类型
+</code></pre>
+
+<p>类型声明语句一般出现在包一级，因此如果新创建的类型名字的首字符大写，则在包外部也可以使用。</p>
+
+<h2 id="251-类型转换">2.5.1 类型转换</h2>
+
+<p>在任何情况下，运行时不会发生转换失败的错误，错误只会发生在编译阶段</p>
+
+<p>比较运算符<code class="language-plaintext highlighter-rouge">==</code>和<code class="language-plaintext highlighter-rouge">&lt;</code>也可以用来比较一个命名类型的变量和另一个有相同类型的变量，或有着相同底层类型的未命名类型的值之间做比较。但是如果两个值有着不同的类型，则不能直接进行比较：</p>
+
+<pre><code class="language-Go">var c Celsius
+var f Fahrenheit
+fmt.Println(c == 0)          // "true"
+fmt.Println(f &gt;= 0)          // "true"
+fmt.Println(c == f)          // compile error: type mismatch
+fmt.Println(c == Celsius(f)) // "true"!
+</code></pre>
+
+<h1 id="26-包和文件">2.6 包和文件</h1>
+
+<p>每个包都对应一个独立的名字空间。例如，在image包中的Decode函数和在unicode/utf16包中的 Decode函数是不同的。要在外部引用该函数，必须显式使用image.Decode或utf16.Decode形式访问。</p>
+
+<p>包还可以让我们通过控制哪些名字是外部可见的来隐藏内部实现信息。在Go语言中，一个简单的规则是：如果一个名字是大写字母开头的，那么该名字是导出的（因为汉字不区分大小写，因此汉字开头的名字是没有导出的）。</p>
+
+<h2 id="261-包注释">2.6.1 包注释</h2>
+
+<p>在每个源文件的包声明前紧跟着的注释是包注释（§10.7.4）。通常，包注释的第一句应该先是包的功能概要说明。一个包通常只有一个源文件有包注释（如果有多个包注释，目前的文档工具会根据源文件名的先后顺序将它们链接为一个包注释）。如果包注释很大，通常会放到一个独立的doc.go文件中。</p>
+
+<h2 id="262-导入包">2.6.2 导入包</h2>
+
+<p>除了包的导入路径，每个包还有一个包名，包名一般是短小的名字（并不要求包名是唯一的），包名在包的声明处指定。按照惯例，一个包的名字和包的导入路径的最后一个字段相同</p>
+
+<p><strong>如果导入了一个包，但是又没有使用该包将被当作一个编译错误处理。</strong></p>
+
+<p>这种强制规则可以有效减少不必要的依赖，虽然在调试期间可能会让人讨厌，因为删除一个类似log.Print(“got here!”)的打印语句可能导致需要同时删除log包导入声明，否则，编译器将会发出一个错误。在这种情况下，我们需要将不必要的导入删除或注释掉</p>
+
+<h2 id="263-包的初始化">2.6.3 包的初始化</h2>
+
+<p>包的初始化是通过 <code class="language-plaintext highlighter-rouge">init()</code> 函数来实现的。每个包可以包含一个或多个 <code class="language-plaintext highlighter-rouge">init()</code> 函数，这些函数会在程序启动时自动执行，无需显式调用。</p>
+
+<p>初始化函数的格式如下：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c">// 初始化代码</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>包中的 <code class="language-plaintext highlighter-rouge">init()</code> 函数会在包被导入时执行，每个包的 <code class="language-plaintext highlighter-rouge">init()</code> 函数按照导入的顺序执行，但每个 <code class="language-plaintext highlighter-rouge">init()</code> 函数仅执行一次。这使得包可以进行一些初始化工作，如设置全局变量、连接数据库、或执行其他必要的操作。</p>
+
+<p>初始化函数对于包的用户是透明的，它们不需要显式调用，而是在包被导入时自动执行。</p>
+
+<h1 id="27-作用域">2.7 作用域</h1>
+
+<p>一个声明语句将程序中的实体和一个名字关联，比如一个函数或一个变量。</p>
+
+<p>声明语句的<strong>作用域</strong>是指<strong>源代码中可以有效使用这个名字的范围</strong>。</p>
+
+<p>不要将作用域和生命周期混为一谈。声明语句的作用域对应的是一个源代码的文本区域；它是一个<strong>编译时</strong>的属性。一个变量的生命周期是指程序运行时变量存在的有效时间段，在此时间区域内它可以被程序的其他部分引用；是一个<strong>运行时</strong>的概念。</p>
+
+<h2 id="271-作用域导致的隐晦的错误">2.7.1 作用域导致的隐晦的错误</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">cwd</span> <span class="kt">string</span>
+
+<span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">cwd</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getwd</span><span class="p">()</span> <span class="c">// NOTE: wrong!</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"os.Getwd failed: %v"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Working directory = %s"</span><span class="p">,</span> <span class="n">cwd</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>上述代码中，虽然cwd在外部已经声明过，但是<code class="language-plaintext highlighter-rouge">:=</code>语句还是将cwd和err重新声明为新的局部变量。因为内部声明的cwd将屏蔽外部的声明，因此上面的代码并不会正确更新包级声明的cwd变量。</p>
+
+<p>最直接的解决方法是通过单独声明err变量，来避免使用<code class="language-plaintext highlighter-rouge">:=</code>的简短声明方式：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">cwd</span> <span class="kt">string</span>
+
+<span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+    <span class="n">cwd</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getwd</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"os.Getwd failed: %v"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="golang" /><summary type="html"><![CDATA[描述Go语言程序的基本元素结构、变量、新类型定义、包和文件、以及作用域等概念]]></summary></entry><entry><title type="html">golang圣经第一章：入门</title><link href="http://localhost:4000/golang/2023-10-12-golang/" rel="alternate" type="text/html" title="golang圣经第一章：入门" /><published>2023-10-12T00:00:00+08:00</published><updated>2023-10-13T21:00:22+08:00</updated><id>http://localhost:4000/golang/golang</id><content type="html" xml:base="http://localhost:4000/golang/2023-10-12-golang/"><![CDATA[<p>Go语言（或 Golang）起源于 2007 年，并在 2009 年正式对外发布。Go 是非常年轻的一门语言，它的主要目标是“兼具 Python 等动态语言的开发速度和 C/C++ 等编译型语言的性能与安全性”。</p>
+
+<h1 id="11-hello-world">1.1 hello world</h1>
+
+<p>go是静态编译</p>
+
+<pre><code class="language-cmd">go run test.go
+go build test.go
+</code></pre>
+
+<p>go build会生成可执行的二进制文件</p>
+
+<p>必须恰当导入需要的包，缺少了必要的包或者导入了不需要的包，程序都无法编译通过。这项严格要求避免了程序开发过程中引入未使用的包（Go 语言编译过程没有警告信息，争议特性之一）。</p>
+
+<h3 id="换行符">换行符</h3>
+
+<p>Go 语言不需要在语句或者声明的末尾添加分号，除非一行上有多条语句。实际上，编译器会主动把特定符号后的换行符转换为分号，因此换行符添加的位置会影响 Go 代码的正确解析</p>
+
+<p>函数的左括号 <code class="language-plaintext highlighter-rouge">{</code> 必须和 <code class="language-plaintext highlighter-rouge">func</code> 函数声明在同一行上，且位于末尾，不能独占一行，而在表达式 <code class="language-plaintext highlighter-rouge">x+y</code> 中，可在 <code class="language-plaintext highlighter-rouge">+</code> 后换行，不能在 <code class="language-plaintext highlighter-rouge">+</code> 前换行（译注：以+结尾的话不会被插入分号分隔符，但是以 x 结尾的话则会被分号分隔符，从而导致编译错误）。</p>
+
+<p>代码编辑器会自动调用<code class="language-plaintext highlighter-rouge">gofmt</code>工具把代码格式化为标准格式，这个格式化工具没有任何可以调整代码格式的参数，固定死的</p>
+
+<p><strong>Go原生支持unicode</strong></p>
+
+<h1 id="12-命令行参数">1.2 命令行参数</h1>
+
+<h3 id="数组">数组</h3>
+
+<p>go语言采用左闭右开形式</p>
+
+<p><code class="language-plaintext highlighter-rouge">s[m:n]</code> 这个切片，<code class="language-plaintext highlighter-rouge">0≤m≤n≤len(s)</code>，包含 <code class="language-plaintext highlighter-rouge">n-m</code> 个元素。</p>
+
+<p>如果省略切片表达式的 <code class="language-plaintext highlighter-rouge">m</code> 或 <code class="language-plaintext highlighter-rouge">n</code>，会默认传入 <code class="language-plaintext highlighter-rouge">0</code> 或 <code class="language-plaintext highlighter-rouge">len(s)</code>，因此前面的切片可以简写成 <code class="language-plaintext highlighter-rouge">os.Args[1:]</code></p>
+
+<h3 id="os包">os包</h3>
+
+<p>命令行参数可以从os包的Args变量获取</p>
+
+<p><code class="language-plaintext highlighter-rouge">os.Args</code>是一个字符串的切片</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="c">//命令本身的名字</span>
+</code></pre></div></div>
+
+<h3>++–</h3>
+
+<p>自增语句 <code class="language-plaintext highlighter-rouge">i++</code> 给 <code class="language-plaintext highlighter-rouge">i</code> 加 <code class="language-plaintext highlighter-rouge">1</code></p>
+
+<p>这和 <code class="language-plaintext highlighter-rouge">i+=1</code> 以及 <code class="language-plaintext highlighter-rouge">i=i+1</code> 都是等价的。对应的还有 <code class="language-plaintext highlighter-rouge">i--</code> 给 <code class="language-plaintext highlighter-rouge">i</code> 减 <code class="language-plaintext highlighter-rouge">1</code>。它们是语句，而不像 C 系的其它语言那样是表达式。</p>
+
+<p>所以 <strong><code class="language-plaintext highlighter-rouge">j=i++</code> 非法</strong>，而且 <code class="language-plaintext highlighter-rouge">++</code> 和 <code class="language-plaintext highlighter-rouge">--</code> 都只能放在变量名后面，因此 <strong><code class="language-plaintext highlighter-rouge">--i</code> 也非法</strong>。</p>
+
+<h3 id="循环">循环</h3>
+
+<p>go只有for循环</p>
+
+<h4 id="显示索引">显示索引</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">initialization</span><span class="p">;</span> <span class="n">condition</span><span class="p">;</span> <span class="n">post</span> <span class="p">{</span>
+    <span class="c">// zero or more statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">for</code> 循环三个部分不需括号包围。大括号强制要求，左大括号必须和 <em><code class="language-plaintext highlighter-rouge">post</code></em> 语句在同一行。</p>
+
+<p><em><code class="language-plaintext highlighter-rouge">initialization</code></em> 语句是可选的，在循环开始前执行。<em><code class="language-plaintext highlighter-rouge">initalization</code></em> 如果存在，必须是一条 <em>简单语句</em>（simple statement），即，短变量声明、自增语句、赋值语句或函数调用。<code class="language-plaintext highlighter-rouge">condition</code> 是一个布尔表达式（boolean expression），其值在每次循环迭代开始时计算。如果为 <code class="language-plaintext highlighter-rouge">true</code> 则执行循环体语句。<code class="language-plaintext highlighter-rouge">post</code> 语句在循环体执行结束后执行，之后再次对 <code class="language-plaintext highlighter-rouge">condition</code> 求值。<code class="language-plaintext highlighter-rouge">condition</code> 值为 <code class="language-plaintext highlighter-rouge">false</code> 时，循环结束。</p>
+
+<p>for 循环的这三个部分每个都可以省略，如果省略 <code class="language-plaintext highlighter-rouge">initialization</code> 和 <code class="language-plaintext highlighter-rouge">post</code>，分号也可以省略：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// a traditional "while" loop</span>
+<span class="k">for</span> <span class="n">condition</span> <span class="p">{</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果连 <code class="language-plaintext highlighter-rouge">condition</code> 也省略了，像下面这样：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// a traditional infinite loop</span>
+<span class="k">for</span> <span class="p">{</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这就变成一个无限循环，尽管如此，还可以用其他方式终止循环，如一条 <code class="language-plaintext highlighter-rouge">break</code> 或 <code class="language-plaintext highlighter-rouge">return</code> 语句。</p>
+
+<h4 id="隐式索引">隐式索引</h4>
+
+<p><code class="language-plaintext highlighter-rouge">for</code> 循环的另一种形式，在某种数据类型的区间（range）上遍历，如字符串或切片。<code class="language-plaintext highlighter-rouge">echo</code> 的第二版本展示了这种形式：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Echo2 prints its command-line arguments.</span>
+<span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">s</span><span class="p">,</span> <span class="n">sep</span> <span class="o">:=</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">arg</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">arg</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="s">" "</span>
+    <span class="p">}</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>每次循环迭代，<code class="language-plaintext highlighter-rouge">range</code> 产生一对值；索引以及在该索引处的元素值。这个例子不需要索引，但 <code class="language-plaintext highlighter-rouge">range</code> 的语法要求，要处理元素，必须处理索引。一种思路是把索引赋值给一个临时变量（如 <code class="language-plaintext highlighter-rouge">temp</code>）然后忽略它的值，但 Go 语言不允许使用无用的局部变量（local variables），因为这会导致编译错误。</p>
+
+<p>Go 语言中这种情况的解决方法是用 <em>空标识符</em>（blank identifier），即 <code class="language-plaintext highlighter-rouge">_</code>（也就是下划线）。空标识符可用于在任何语法需要变量名但程序逻辑不需要的时候（如：在循环里）丢弃不需要的循环索引，并保留元素值。大多数的 Go 程序员都会像上面这样使用 <code class="language-plaintext highlighter-rouge">range</code> 和 <code class="language-plaintext highlighter-rouge">_</code> 写 <code class="language-plaintext highlighter-rouge">echo</code> 程序，因为隐式地而非显式地索引 <code class="language-plaintext highlighter-rouge">os.Args</code>，容易写对。</p>
+
+<h3 id="变量声明">变量声明</h3>
+
+<p>声明一个变量有好几种方式，下面这些都等价：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">:=</span> <span class="s">""</span>
+<span class="k">var</span> <span class="n">s</span> <span class="kt">string</span>
+<span class="k">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">var</span> <span class="n">s</span> <span class="kt">string</span> <span class="o">=</span> <span class="s">""</span>
+</code></pre></div></div>
+
+<p>第一种形式，是一条短变量声明，最简洁，但只能用在函数内部，而不能用于包变量。</p>
+
+<p>第二种形式依赖于字符串的默认初始化零值机制，被初始化为 <code class="language-plaintext highlighter-rouge">""</code>。</p>
+
+<p>第三种形式用得很少，除非同时声明多个变量。</p>
+
+<p>第四种形式显式地标明变量的类型，当变量类型与初值类型相同时，类型冗余，但如果两者类型不同，变量类型就必须了。</p>
+
+<p>实践中一般使用前两种形式中的某个，初始值重要的话就显式地指定变量的类型，否则使用隐式初始化。</p>
+
+<h1 id="13-查找重复的行">1.3 查找重复的行</h1>
+
+<h3 id="动词">动词</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%d          十进制整数
+%x, %o, %b  十六进制，八进制，二进制整数。
+%f, %g, %e  浮点数： 3.141593 3.141592653589793 3.141593e+00
+%t          布尔：true或false
+%c          字符（rune） (Unicode码点)
+%s          字符串
+%q          带双引号的字符串"abc"或带单引号的字符'c'
+%v          变量的自然形式（natural format）
+%T          变量的类型
+%%          字面上的百分号标志（无操作数）
+</code></pre></div></div>
+
+<h3 id="格式化函数">格式化函数</h3>
+
+<p>默认情况下，<code class="language-plaintext highlighter-rouge">Printf</code> 不会换行。按照惯例，以字母 <code class="language-plaintext highlighter-rouge">f</code> 结尾的格式化函数，如 <code class="language-plaintext highlighter-rouge">log.Printf</code> 和 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>，都采用 <code class="language-plaintext highlighter-rouge">fmt.Printf</code> 的格式化准则。而以 <code class="language-plaintext highlighter-rouge">ln</code> 结尾的格式化函数，则遵循 <code class="language-plaintext highlighter-rouge">Println</code> 的方式，以跟 <code class="language-plaintext highlighter-rouge">%v</code> 差不多的方式格式化参数，并在最后添加一个换行符。（译注：后缀 <code class="language-plaintext highlighter-rouge">f</code> 指 <code class="language-plaintext highlighter-rouge">format</code>，<code class="language-plaintext highlighter-rouge">ln</code> 指 <code class="language-plaintext highlighter-rouge">line</code>。）</p>
+
+<h3 id="nil">nil</h3>
+
+<p>nil属于内置值，相当于其他语言中的NULL</p>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="golang" /><summary type="html"><![CDATA[对go的一些样例做基本的介绍]]></summary></entry><entry><title type="html">golang环境配置</title><link href="http://localhost:4000/golang/2023-10-11-golang/" rel="alternate" type="text/html" title="golang环境配置" /><published>2023-10-11T00:00:00+08:00</published><updated>2023-10-13T12:58:37+08:00</updated><id>http://localhost:4000/golang/golang</id><content type="html" xml:base="http://localhost:4000/golang/2023-10-11-golang/"><![CDATA[<p>windows系统，使用vs code作为IDE，配置golang环境</p>
+
+<h2 id="下载">下载</h2>
+
+<p><a href="https://go.dev/doc/install">Download and install - The Go Programming Language</a></p>
+
+<p>go1.21.3.windows-amd64</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\admin&gt;go version
+go version go1.21.3 windows/amd64
+</code></pre></div></div>
+
+<h2 id="安装go插件">安装go插件</h2>
+
+<p>VS code搜索go，第一个</p>
+
+<h2 id="设置代理">设置代理</h2>
+
+<p>cmd输入以下命令</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre></div></div>
+
+<p>go modules功能的开关是GO111MODULE</p>
+
+<p>https://goproxy.cn是国内代理</p>
+
+<p>在使用go modules时，GOPATH是无意义的</p>
+
+<blockquote>
+  <p>The “gopls” command is not available. Run “go install -v golang.org/x/tools/gopls@latest” to install.</p>
+</blockquote>
+
+<h2 id="下载依赖">下载依赖</h2>
+
+<p>VS中ctrl shift p搜索go install/update tools</p>
+
+<blockquote>
+  <p>ctrl K T 选择VSC主题</p>
+</blockquote>
+
+<p>下载所有依赖</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112035245.png" alt="image-20231011203513207" /></p>
+
+<h2 id="go-modules依赖管理">go modules依赖管理</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go mod tidy
+</code></pre></div></div>
+
+<p>将当前源码文件所依赖的包安装，多的删掉，少了补上</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go mod init 应用名称(项目名称)  
+</code></pre></div></div>
+
+<p>执行该命令，会在应用过的根目录下(家目录)，生成go.mod文件。</p>
+
+<p>我们在进行go语言项目开发的时候，会依赖3种类型的库包：</p>
+
+<ol>
+  <li>内置的标准库包，在goroot/src目录下，也就是我们安装目录的src目录下(类似于python的bin目录)</li>
+  <li>第三方库包（git上开源的）</li>
+  <li>项目中的库包，也就是项目中的其他目录。自己调用自己写的函数方法</li>
+</ol>
+
+<h2 id="调试">调试</h2>
+
+<p>文件目录</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112110050.png" alt="image-20231011211014017" /></p>
+
+<p>打断点</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112109056.png" alt="image-20231011210923999" /></p>]]></content><author><name>Ge Lei</name><email>&lt;mail@domain.tld&gt;</email></author><category term="golang" /><summary type="html"><![CDATA[VS code下使用golang生成exe和进行调试]]></summary></entry><entry><title type="html">简单工厂模式</title><link href="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" rel="alternate" type="text/html" title="简单工厂模式" /><published>2023-09-22T00:00:00+08:00</published><updated>2023-10-10T00:24:25+08:00</updated><id>http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/design-pattern</id><content type="html" xml:base="http://localhost:4000/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/"><![CDATA[<p>定义一个工厂类，其成员函数可以根据不同的参数创建并返回不同的类对象，调用者无需关注创建细节</p>
 
 <h2 id="简介">简介</h2>
 

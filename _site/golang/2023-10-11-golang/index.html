@@ -25,26 +25,29 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
 
 
 
+  <meta name="robots" content="noindex">
+
 
 
   
     
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Gelei Blog | 百万雄狮都听我号令！</title>
+<title>golang环境配置 | Gelei Blog</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Gelei Blog" />
+<meta property="og:title" content="golang环境配置" />
 <meta name="author" content="Ge Lei" />
 <meta property="og:locale" content="zh" />
-<meta name="description" content="格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等" />
-<meta property="og:description" content="格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等" />
-<link rel="canonical" href="http://localhost:4000/404.html" />
-<meta property="og:url" content="http://localhost:4000/404.html" />
+<meta name="description" content="VS code下使用golang生成exe和进行调试" />
+<meta property="og:description" content="VS code下使用golang生成exe和进行调试" />
+<link rel="canonical" href="http://localhost:4000/golang/2023-10-11-golang/" />
+<meta property="og:url" content="http://localhost:4000/golang/2023-10-11-golang/" />
 <meta property="og:site_name" content="Gelei Blog" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-11T00:00:00+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Gelei Blog" />
+<meta property="twitter:title" content="golang环境配置" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-13T20:54:08+08:00","description":"格蕾的C++技术博客, 涉及C++基础, 计算机图形学, 三维动作捕捉, 游戏引擎开发, 音视频处理等","headline":"Gelei Blog","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/404.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-13T12:58:37+08:00","datePublished":"2023-10-11T00:00:00+08:00","description":"VS code下使用golang生成exe和进行调试","headline":"golang环境配置","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/golang/2023-10-11-golang/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/golang/2023-10-11-golang/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -74,7 +77,7 @@ Powered by Hydejack v9.1.6 <https://hydejack.com/>
 <meta name="generator" content="Hydejack v9.1.6" />
 
 
-<link rel="alternate" href="http://localhost:4000/404.html" hreflang="zh">
+<link rel="alternate" href="http://localhost:4000/golang/2023-10-11-golang/" hreflang="zh">
 
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Gelei Blog" />
 
@@ -177,7 +180,7 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
 
   <main
   id="_main"
-  class="content layout-not-found"
+  class="content layout-post"
   role="main"
 >
   <nav id="breadcrumbs" class="screen-only"><ul>
@@ -188,7 +191,16 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
       <li>
         
           <span>/</span>
-          <span>404.html</span>
+          
+          
+          <a href="/golang/">golang</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-10-11-golang</span>
         
       </li>
     
@@ -196,21 +208,319 @@ html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.
 </ul></nav>
   
 
-<div class="page">
-  <h1 class="page-title">404: Page Not Found</h1>
-  <div class="hr pb0"></div>
+
+
+
+
+
+
+
+
+
+<article id="post-golang-golang" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        golang环境配置
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-10-11T00:00:00+08:00">11 Oct 2023</time> in <a href="/golang/" class="flip-title">Go语言</a> 
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 13 Oct 2023">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2023-10-13T12:58:37+08:00">2023-10-13</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
 
   
-  
-    
-    
-    <p class="lead">
-      Sorry, we've misplaced that URL or it's pointing to something that doesn't exist.
-<a href="/">Head back home</a> to try finding it again.
+    <p class="note-sm" >
+      VS code下使用golang生成exe和进行调试
 
     </p>
   
+
+
+  </header>
+
+  
+    <p>windows系统，使用vs code作为IDE，配置golang环境</p>
+
+<h2 id="下载">下载</h2>
+
+<p><a href="https://go.dev/doc/install">Download and install - The Go Programming Language</a></p>
+
+<p>go1.21.3.windows-amd64</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\admin&gt;go version
+go version go1.21.3 windows/amd64
+</code></pre></div></div>
+
+<h2 id="安装go插件">安装go插件</h2>
+
+<p>VS code搜索go，第一个</p>
+
+<h2 id="设置代理">设置代理</h2>
+
+<p>cmd输入以下命令</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre></div></div>
+
+<p>go modules功能的开关是GO111MODULE</p>
+
+<p>https://goproxy.cn是国内代理</p>
+
+<p>在使用go modules时，GOPATH是无意义的</p>
+
+<blockquote>
+  <p>The “gopls” command is not available. Run “go install -v golang.org/x/tools/gopls@latest” to install.</p>
+</blockquote>
+
+<h2 id="下载依赖">下载依赖</h2>
+
+<p>VS中ctrl shift p搜索go install/update tools</p>
+
+<blockquote>
+  <p>ctrl K T 选择VSC主题</p>
+</blockquote>
+
+<p>下载所有依赖</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112035245.png" alt="image-20231011203513207" /></p>
+
+<h2 id="go-modules依赖管理">go modules依赖管理</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go mod tidy
+</code></pre></div></div>
+
+<p>将当前源码文件所依赖的包安装，多的删掉，少了补上</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go mod init 应用名称(项目名称)  
+</code></pre></div></div>
+
+<p>执行该命令，会在应用过的根目录下(家目录)，生成go.mod文件。</p>
+
+<p>我们在进行go语言项目开发的时候，会依赖3种类型的库包：</p>
+
+<ol>
+  <li>内置的标准库包，在goroot/src目录下，也就是我们安装目录的src目录下(类似于python的bin目录)</li>
+  <li>第三方库包（git上开源的）</li>
+  <li>项目中的库包，也就是项目中的其他目录。自己调用自己写的函数方法</li>
+</ol>
+
+<h2 id="调试">调试</h2>
+
+<p>文件目录</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112110050.png" alt="image-20231011211014017" /></p>
+
+<p>打断点</p>
+
+<p><img src="https://raw.githubusercontent.com/lanyily/Cplusplus-pic/main/2023/202310112109056.png" alt="image-20231011210923999" /></p>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/golang/2023-10-13-golang/" class="flip-title"><span>golang圣经第二章：程序结构</span></a>  <time class="faded fine" datetime="2023-10-13T00:00:00+08:00">13 Oct 2023</time></li>                        <li class="h4">  <a href="/golang/2023-10-12-golang/" class="flip-title"><span>golang圣经第一章：入门</span></a>  <time class="faded fine" datetime="2023-10-12T00:00:00+08:00">12 Oct 2023</time></li>                        <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" class="flip-title"><span>简单工厂模式</span></a>  <time class="faded fine" datetime="2023-09-22T00:00:00+08:00">22 Sep 2023</time></li>            </ul></aside>
+
+  
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/author.jpg"
+    
+    
+  
+  alt="Ge Lei"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>你好，我是Gelei，希望你能从本站中有所收获~</p>
+
+<p>看的开心的话，可以<a href="/about/">请格蕾喝杯咖啡~</a></p>
+
+<p>感谢喵，谢谢打赏喵~</p>
+
+<p>Hello, I am Gelei. I hope you can learn something from this website~</p>
+
+<p>If you’re happy to watch, you can <a href="/about/">buy Grey a cup of coffee~</a></p>
+
+<p>Thank you Meow, thank you for sponsoring Meow~</p>
+
+<p>こんにちは、私はGeleiです、あなたがこのサイトからいくつかの収穫があることを願っています~</p>
+
+<p>見るのが楽しいなら、<a href="/about/">Geleiにコーヒーをおごってもいいですよ~</a></p>
+
+<p>ありがとうにゃん、協賛ありがとうにゃ~</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
 </div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  
+
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<script>!function(w, d) {
+  if (d.getElementById("disqus_thread")) {
+    if (w.DISQUS) {
+      w.DISQUS.reset({
+        reload: true,
+        config() {
+          this.page.url = w.location.href;
+          this.page.title = d.title;
+        },
+      });
+    } else {
+      w.disqus_config = function disqusConfig() {
+        this.page.url = w.location.href;
+        this.page.title = d.title;
+      };
+      w.loadJSDeferred(d.getElementById("_hrefDisqus").href + '/embed.js');
+    }
+  }
+}(window, document);</script>
+
+
+</aside>
+
+
+  
+
 
   
 <footer class="content" role="contentinfo">

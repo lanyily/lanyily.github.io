@@ -8,7 +8,25 @@ author1:
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
   about:             |
-    你好,我是Gelei,希望你能从本站中有所收获~
+    你好，我是Gelei，希望你能从本站中有所收获~
+
+    看的开心的话，可以<a href="/about/">请格蕾喝杯咖啡~</a>
+
+    感谢喵，谢谢打赏喵~
+
+
+    Hello, I am Gelei. I hope you can learn something from this website~
+
+    If you're happy to watch, you can <a href="/about/">buy Grey a cup of coffee~</a>
+
+    Thank you Meow, thank you for sponsoring Meow~
+
+
+    こんにちは、私はGeleiです、あなたがこのサイトからいくつかの収穫があることを願っています~
+
+    見るのが楽しいなら、<a href="/about/">Geleiにコーヒーをおごってもいいですよ~</a>
+    
+    ありがとうにゃん、協賛ありがとうにゃ~
 
   # This photo will be used in the about section
   picture:

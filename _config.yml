@@ -54,24 +54,29 @@ author:
 
 # Add links to the sidebar. 标题界面
 menu:
-  - title:             C++
-    url:               /about/
-  - title:             Cuda
-    url:               /about/    
+  # - title:             C++
+  #   url:               /about/
+  - title:             golang
+    url:               /golang/    
+  # - title:             Cuda
+  #   url:               /about/    
   - title:             23种设计模式
     url:               /设计模式/
-  - title:             音视频处理
-    url:               /about/    
-  - title:             计算机图形学
-    url:               /docs/
-  - title:             windows开发
-    url:               /about/
+  # - title:             音视频处理
+  #   url:               /about/    
+  # - title:             计算机图形学
+  #   url:               /docs/
+  # - title:             windows开发
+  #   url:               /about/
+
   # - title:             About
   #   url:               /about/
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
 legal:
+  - title:             About
+    url:               /about/
   # - title:             LICENSE
   #   url:               /LICENSE/
   # - title:             NOTICE

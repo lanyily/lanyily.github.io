@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.1.6 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>golang圣经第一章：入门 | Gelei Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="golang圣经第一章：入门" />
+<meta name="author" content="Ge Lei" />
+<meta property="og:locale" content="zh" />
+<meta name="description" content="对go的一些样例做基本的介绍" />
+<meta property="og:description" content="对go的一些样例做基本的介绍" />
+<link rel="canonical" href="http://localhost:4000/golang/2023-10-12-golang/" />
+<meta property="og:url" content="http://localhost:4000/golang/2023-10-12-golang/" />
+<meta property="og:site_name" content="Gelei Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-12T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="golang圣经第一章：入门" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ge Lei"},"dateModified":"2023-10-13T21:00:22+08:00","datePublished":"2023-10-12T00:00:00+08:00","description":"对go的一些样例做基本的介绍","headline":"golang圣经第一章：入门","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/golang/2023-10-12-golang/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Ge Lei"},"url":"http://localhost:4000/golang/2023-10-12-golang/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C++基础,计算机图形学,三维动作捕捉,游戏引擎开发,音视频处理">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gelei Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Gelei Blog">
+
+<meta name="generator" content="Hydejack v9.1.6" />
+
+
+<link rel="alternate" href="http://localhost:4000/golang/2023-10-12-golang/" hreflang="zh">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Gelei Blog" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com"><link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+<link rel="dns-prefetch" href="https://https-lanyily-github-io.disqus.com" id="_hrefDisqus">
+
+
+<script>!function(r,c){"use strict";function a(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=c.createElement("script"),e=(n.src=e,t&&a(n,"load",t,{once:!0}),c.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=c.createElement("script");function o(){r._loaded=!0,t&&a(n,"load",t,{once:!0});var e=c.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():a(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){a(c.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2023-10-13T22:32:21+08:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.1.6.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700%7CNoto+Sans:400,400i,700,700i&display=swap" id="_fontsPreload">
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(117,98,223);--accent-color-faded: rgba(117, 98, 223, 0.5);--accent-color-highlight: rgba(117, 98, 223, 0.1);--accent-color-darkened: #5942d9;--theme-color: rgb(0,0,0)}
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="no-break-layout">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/golang/">golang</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-10-12-golang</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-golang-golang" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        golang圣经第一章：入门
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-10-12T00:00:00+08:00">12 Oct 2023</time> in <a href="/golang/" class="flip-title">Go语言</a> 
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 13 Oct 2023">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2023-10-13T21:00:22+08:00">2023-10-13</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      对go的一些样例做基本的介绍
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Go语言（或 Golang）起源于 2007 年，并在 2009 年正式对外发布。Go 是非常年轻的一门语言，它的主要目标是“兼具 Python 等动态语言的开发速度和 C/C++ 等编译型语言的性能与安全性”。</p>
+
+<h1 id="11-hello-world">1.1 hello world</h1>
+
+<p>go是静态编译</p>
+
+<pre><code class="language-cmd">go run test.go
+go build test.go
+</code></pre>
+
+<p>go build会生成可执行的二进制文件</p>
+
+<p>必须恰当导入需要的包，缺少了必要的包或者导入了不需要的包，程序都无法编译通过。这项严格要求避免了程序开发过程中引入未使用的包（Go 语言编译过程没有警告信息，争议特性之一）。</p>
+
+<h3 id="换行符">换行符</h3>
+
+<p>Go 语言不需要在语句或者声明的末尾添加分号，除非一行上有多条语句。实际上，编译器会主动把特定符号后的换行符转换为分号，因此换行符添加的位置会影响 Go 代码的正确解析</p>
+
+<p>函数的左括号 <code class="language-plaintext highlighter-rouge">{</code> 必须和 <code class="language-plaintext highlighter-rouge">func</code> 函数声明在同一行上，且位于末尾，不能独占一行，而在表达式 <code class="language-plaintext highlighter-rouge">x+y</code> 中，可在 <code class="language-plaintext highlighter-rouge">+</code> 后换行，不能在 <code class="language-plaintext highlighter-rouge">+</code> 前换行（译注：以+结尾的话不会被插入分号分隔符，但是以 x 结尾的话则会被分号分隔符，从而导致编译错误）。</p>
+
+<p>代码编辑器会自动调用<code class="language-plaintext highlighter-rouge">gofmt</code>工具把代码格式化为标准格式，这个格式化工具没有任何可以调整代码格式的参数，固定死的</p>
+
+<p><strong>Go原生支持unicode</strong></p>
+
+<h1 id="12-命令行参数">1.2 命令行参数</h1>
+
+<h3 id="数组">数组</h3>
+
+<p>go语言采用左闭右开形式</p>
+
+<p><code class="language-plaintext highlighter-rouge">s[m:n]</code> 这个切片，<code class="language-plaintext highlighter-rouge">0≤m≤n≤len(s)</code>，包含 <code class="language-plaintext highlighter-rouge">n-m</code> 个元素。</p>
+
+<p>如果省略切片表达式的 <code class="language-plaintext highlighter-rouge">m</code> 或 <code class="language-plaintext highlighter-rouge">n</code>，会默认传入 <code class="language-plaintext highlighter-rouge">0</code> 或 <code class="language-plaintext highlighter-rouge">len(s)</code>，因此前面的切片可以简写成 <code class="language-plaintext highlighter-rouge">os.Args[1:]</code></p>
+
+<h3 id="os包">os包</h3>
+
+<p>命令行参数可以从os包的Args变量获取</p>
+
+<p><code class="language-plaintext highlighter-rouge">os.Args</code>是一个字符串的切片</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="c">//命令本身的名字</span>
+</code></pre></div></div>
+
+<h3>++–</h3>
+
+<p>自增语句 <code class="language-plaintext highlighter-rouge">i++</code> 给 <code class="language-plaintext highlighter-rouge">i</code> 加 <code class="language-plaintext highlighter-rouge">1</code></p>
+
+<p>这和 <code class="language-plaintext highlighter-rouge">i+=1</code> 以及 <code class="language-plaintext highlighter-rouge">i=i+1</code> 都是等价的。对应的还有 <code class="language-plaintext highlighter-rouge">i--</code> 给 <code class="language-plaintext highlighter-rouge">i</code> 减 <code class="language-plaintext highlighter-rouge">1</code>。它们是语句，而不像 C 系的其它语言那样是表达式。</p>
+
+<p>所以 <strong><code class="language-plaintext highlighter-rouge">j=i++</code> 非法</strong>，而且 <code class="language-plaintext highlighter-rouge">++</code> 和 <code class="language-plaintext highlighter-rouge">--</code> 都只能放在变量名后面，因此 <strong><code class="language-plaintext highlighter-rouge">--i</code> 也非法</strong>。</p>
+
+<h3 id="循环">循环</h3>
+
+<p>go只有for循环</p>
+
+<h4 id="显示索引">显示索引</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">initialization</span><span class="p">;</span> <span class="n">condition</span><span class="p">;</span> <span class="n">post</span> <span class="p">{</span>
+    <span class="c">// zero or more statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">for</code> 循环三个部分不需括号包围。大括号强制要求，左大括号必须和 <em><code class="language-plaintext highlighter-rouge">post</code></em> 语句在同一行。</p>
+
+<p><em><code class="language-plaintext highlighter-rouge">initialization</code></em> 语句是可选的，在循环开始前执行。<em><code class="language-plaintext highlighter-rouge">initalization</code></em> 如果存在，必须是一条 <em>简单语句</em>（simple statement），即，短变量声明、自增语句、赋值语句或函数调用。<code class="language-plaintext highlighter-rouge">condition</code> 是一个布尔表达式（boolean expression），其值在每次循环迭代开始时计算。如果为 <code class="language-plaintext highlighter-rouge">true</code> 则执行循环体语句。<code class="language-plaintext highlighter-rouge">post</code> 语句在循环体执行结束后执行，之后再次对 <code class="language-plaintext highlighter-rouge">condition</code> 求值。<code class="language-plaintext highlighter-rouge">condition</code> 值为 <code class="language-plaintext highlighter-rouge">false</code> 时，循环结束。</p>
+
+<p>for 循环的这三个部分每个都可以省略，如果省略 <code class="language-plaintext highlighter-rouge">initialization</code> 和 <code class="language-plaintext highlighter-rouge">post</code>，分号也可以省略：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// a traditional "while" loop</span>
+<span class="k">for</span> <span class="n">condition</span> <span class="p">{</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果连 <code class="language-plaintext highlighter-rouge">condition</code> 也省略了，像下面这样：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// a traditional infinite loop</span>
+<span class="k">for</span> <span class="p">{</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这就变成一个无限循环，尽管如此，还可以用其他方式终止循环，如一条 <code class="language-plaintext highlighter-rouge">break</code> 或 <code class="language-plaintext highlighter-rouge">return</code> 语句。</p>
+
+<h4 id="隐式索引">隐式索引</h4>
+
+<p><code class="language-plaintext highlighter-rouge">for</code> 循环的另一种形式，在某种数据类型的区间（range）上遍历，如字符串或切片。<code class="language-plaintext highlighter-rouge">echo</code> 的第二版本展示了这种形式：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Echo2 prints its command-line arguments.</span>
+<span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">s</span><span class="p">,</span> <span class="n">sep</span> <span class="o">:=</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">arg</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">arg</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="s">" "</span>
+    <span class="p">}</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>每次循环迭代，<code class="language-plaintext highlighter-rouge">range</code> 产生一对值；索引以及在该索引处的元素值。这个例子不需要索引，但 <code class="language-plaintext highlighter-rouge">range</code> 的语法要求，要处理元素，必须处理索引。一种思路是把索引赋值给一个临时变量（如 <code class="language-plaintext highlighter-rouge">temp</code>）然后忽略它的值，但 Go 语言不允许使用无用的局部变量（local variables），因为这会导致编译错误。</p>
+
+<p>Go 语言中这种情况的解决方法是用 <em>空标识符</em>（blank identifier），即 <code class="language-plaintext highlighter-rouge">_</code>（也就是下划线）。空标识符可用于在任何语法需要变量名但程序逻辑不需要的时候（如：在循环里）丢弃不需要的循环索引，并保留元素值。大多数的 Go 程序员都会像上面这样使用 <code class="language-plaintext highlighter-rouge">range</code> 和 <code class="language-plaintext highlighter-rouge">_</code> 写 <code class="language-plaintext highlighter-rouge">echo</code> 程序，因为隐式地而非显式地索引 <code class="language-plaintext highlighter-rouge">os.Args</code>，容易写对。</p>
+
+<h3 id="变量声明">变量声明</h3>
+
+<p>声明一个变量有好几种方式，下面这些都等价：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">:=</span> <span class="s">""</span>
+<span class="k">var</span> <span class="n">s</span> <span class="kt">string</span>
+<span class="k">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">var</span> <span class="n">s</span> <span class="kt">string</span> <span class="o">=</span> <span class="s">""</span>
+</code></pre></div></div>
+
+<p>第一种形式，是一条短变量声明，最简洁，但只能用在函数内部，而不能用于包变量。</p>
+
+<p>第二种形式依赖于字符串的默认初始化零值机制，被初始化为 <code class="language-plaintext highlighter-rouge">""</code>。</p>
+
+<p>第三种形式用得很少，除非同时声明多个变量。</p>
+
+<p>第四种形式显式地标明变量的类型，当变量类型与初值类型相同时，类型冗余，但如果两者类型不同，变量类型就必须了。</p>
+
+<p>实践中一般使用前两种形式中的某个，初始值重要的话就显式地指定变量的类型，否则使用隐式初始化。</p>
+
+<h1 id="13-查找重复的行">1.3 查找重复的行</h1>
+
+<h3 id="动词">动词</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%d          十进制整数
+%x, %o, %b  十六进制，八进制，二进制整数。
+%f, %g, %e  浮点数： 3.141593 3.141592653589793 3.141593e+00
+%t          布尔：true或false
+%c          字符（rune） (Unicode码点)
+%s          字符串
+%q          带双引号的字符串"abc"或带单引号的字符'c'
+%v          变量的自然形式（natural format）
+%T          变量的类型
+%%          字面上的百分号标志（无操作数）
+</code></pre></div></div>
+
+<h3 id="格式化函数">格式化函数</h3>
+
+<p>默认情况下，<code class="language-plaintext highlighter-rouge">Printf</code> 不会换行。按照惯例，以字母 <code class="language-plaintext highlighter-rouge">f</code> 结尾的格式化函数，如 <code class="language-plaintext highlighter-rouge">log.Printf</code> 和 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>，都采用 <code class="language-plaintext highlighter-rouge">fmt.Printf</code> 的格式化准则。而以 <code class="language-plaintext highlighter-rouge">ln</code> 结尾的格式化函数，则遵循 <code class="language-plaintext highlighter-rouge">Println</code> 的方式，以跟 <code class="language-plaintext highlighter-rouge">%v</code> 差不多的方式格式化参数，并在最后添加一个换行符。（译注：后缀 <code class="language-plaintext highlighter-rouge">f</code> 指 <code class="language-plaintext highlighter-rouge">format</code>，<code class="language-plaintext highlighter-rouge">ln</code> 指 <code class="language-plaintext highlighter-rouge">line</code>。）</p>
+
+<h3 id="nil">nil</h3>
+
+<p>nil属于内置值，相当于其他语言中的NULL</p>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/golang/2023-10-13-golang/" class="flip-title"><span>golang圣经第二章：程序结构</span></a>  <time class="faded fine" datetime="2023-10-13T00:00:00+08:00">13 Oct 2023</time></li>                        <li class="h4">  <a href="/golang/2023-10-11-golang/" class="flip-title"><span>golang环境配置</span></a>  <time class="faded fine" datetime="2023-10-11T00:00:00+08:00">11 Oct 2023</time></li>                        <li class="h4">  <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2023-09-22-design-pattern/" class="flip-title"><span>简单工厂模式</span></a>  <time class="faded fine" datetime="2023-09-22T00:00:00+08:00">22 Sep 2023</time></li>            </ul></aside>
+
+  
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/author.jpg"
+    
+    
+  
+  alt="Ge Lei"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>你好，我是Gelei，希望你能从本站中有所收获~</p>
+
+<p>看的开心的话，可以<a href="/about/">请格蕾喝杯咖啡~</a></p>
+
+<p>感谢喵，谢谢打赏喵~</p>
+
+<p>Hello, I am Gelei. I hope you can learn something from this website~</p>
+
+<p>If you’re happy to watch, you can <a href="/about/">buy Grey a cup of coffee~</a></p>
+
+<p>Thank you Meow, thank you for sponsoring Meow~</p>
+
+<p>こんにちは、私はGeleiです、あなたがこのサイトからいくつかの収穫があることを願っています~</p>
+
+<p>見るのが楽しいなら、<a href="/about/">Geleiにコーヒーをおごってもいいですよ~</a></p>
+
+<p>ありがとうにゃん、協賛ありがとうにゃ~</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  
+
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<script>!function(w, d) {
+  if (d.getElementById("disqus_thread")) {
+    if (w.DISQUS) {
+      w.DISQUS.reset({
+        reload: true,
+        config() {
+          this.page.url = w.location.href;
+          this.page.title = d.title;
+        },
+      });
+    } else {
+      w.disqus_config = function disqusConfig() {
+        this.page.url = w.location.href;
+        this.page.title = d.title;
+      };
+      w.loadJSDeferred(d.getElementById("_hrefDisqus").href + '/embed.js');
+    }
+  }
+}(window, document);</script>
+
+
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2023 github-lanyily. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/about/">About</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.1.6</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Gelei Blog" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Gelei Blog</h2></a>
+    
+    
+      <p class="">
+        百万雄狮都听我号令！
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/golang/"
+          class="sidebar-nav-item "
+          
+        >
+          golang
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+          class="sidebar-nav-item "
+          
+        >
+          23种设计模式
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/lanyily" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://leetcode.cn/u/gelei-k/" title="leetcode" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">leetcode</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())}();
+</script>
+  <script src="/assets/js/hydejack-9.1.6.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.1.6.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>
